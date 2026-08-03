@@ -24,7 +24,7 @@
                 <h3 class="box-title">Shop Categories <i class="fas fa-chevron-down"></i></h3>
                 <div class="box-content">
                     <div class="search-category-input">
-                        <input type="text" placeholder="Search categories...">
+                        <input type="text" placeholder="Search products..." id="searchInput">
                         <i class="fas fa-search"></i>
                     </div>
                     <ul class="sidebar-category-list">
@@ -42,10 +42,10 @@
                 <h3 class="box-title">Filter by Price</h3>
                 <div class="box-content">
                     <div class="price-range-slider-wrapper">
-                        <input type="range" min="0" max="5000" value="3000" class="range-slider" id="priceRange">
+                        <input type="range" min="0" max="5000" value="5000" class="range-slider" id="priceRange">
                         <div class="price-range-values">
                             <span>0</span>
-                            <span>5,000</span>
+                            <span id="priceValueText">5,000</span>
                         </div>
                     </div>
                 </div>
@@ -68,21 +68,22 @@
             <div class="catalog-toolbar">
                 <div class="toolbar-left">
                     <button class="filter-toggle-btn"><i class="fa-solid fa-sliders"></i> Filter</button>
-                    <div class="quick-tags">
-                        <button class="tag-btn active">All</button>
-                        <button class="tag-btn">Featured</button>
-                        <button class="tag-btn">Best Sellers</button>
-                        <button class="tag-btn">Top Rated</button>
-                        <button class="tag-btn">New Arrival</button>
+                    <div class="quick-tags" id="quickTags">
+                        <button class="tag-btn active" data-tag="all">All</button>
+                        <button class="tag-btn" data-tag="featured">Featured</button>
+                        <button class="tag-btn" data-tag="bestsellers">Best Sellers</button>
+                        <button class="tag-btn" data-tag="toprated">Top Rated</button>
+                        <button class="tag-btn" data-tag="new">New Arrival</button>
                     </div>
                 </div>
                 <div class="toolbar-right">
-                    <select class="catalog-sort-select">
-                        <option>Default Sorting</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
+                    <select class="catalog-sort-select" id="sortSelect">
+                        <option value="default">Default Sorting</option>
+                        <option value="price_asc">Price: Low to High</option>
+                        <option value="price_desc">Price: High to Low</option>
+                        <option value="newest">Newest First</option>
                     </select>
-                    <span class="results-count">Showing 1-{{ count($products) }} of {{ count($products) }}</span>
+                    <span class="results-count" id="resultsCount">Showing 1-{{ count($products) }} of {{ count($products) }}</span>
                     <div class="grid-layout-btns">
                         <button class="layout-btn active" onclick="setGridLayout(3)"><i class="fas fa-th-large"></i></button>
                         <button class="layout-btn" onclick="setGridLayout(4)"><i class="fas fa-th"></i></button>
@@ -93,7 +94,7 @@
             <!-- Products Grid -->
             <div class="catalog-products-grid layout-3" id="productsGrid">
                 @foreach($products as $prodId => $prod)
-                <div class="ms-card">
+                <div class="ms-card product-item" data-id="{{ $prodId }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}">
                     <div class="ms-img-wrapper">
                         @if(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
@@ -136,5 +137,114 @@
             buttons[0].classList.add('active');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('searchInput');
+        const priceRange = document.getElementById('priceRange');
+        const priceValueText = document.getElementById('priceValueText');
+        const sortSelect = document.getElementById('sortSelect');
+        const tagBtns = document.querySelectorAll('.tag-btn');
+        const productsGrid = document.getElementById('productsGrid');
+        const resultsCount = document.getElementById('resultsCount');
+        
+        // Convert NodeList to Array for easier sorting
+        let products = Array.from(document.querySelectorAll('.product-item'));
+        
+        let activeTag = 'all';
+
+        function filterAndSortProducts() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const maxPrice = parseInt(priceRange.value);
+            const sortOption = sortSelect.value;
+            
+            let visibleCount = 0;
+            
+            // First filter
+            products.forEach(product => {
+                const name = product.getAttribute('data-name');
+                const price = parseInt(product.getAttribute('data-price'));
+                const id = parseInt(product.getAttribute('data-id'));
+                
+                let isMatch = true;
+                
+                // Search filter
+                if (searchTerm && !name.includes(searchTerm)) {
+                    isMatch = false;
+                }
+                
+                // Price filter
+                if (price > maxPrice) {
+                    isMatch = false;
+                }
+                
+                // Tag filter (simulated logic)
+                if (activeTag === 'featured' && id % 2 !== 0) isMatch = false;
+                if (activeTag === 'bestsellers' && id % 3 !== 0) isMatch = false;
+                if (activeTag === 'toprated' && id > 10) isMatch = false;
+                if (activeTag === 'new' && id < 10) isMatch = false;
+                
+                if (isMatch) {
+                    product.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    product.classList.add('hidden');
+                }
+            });
+            
+            // Then sort the visible elements
+            const visibleProducts = products.filter(p => !p.classList.contains('hidden'));
+            
+            visibleProducts.sort((a, b) => {
+                const priceA = parseInt(a.getAttribute('data-price'));
+                const priceB = parseInt(b.getAttribute('data-price'));
+                const idA = parseInt(a.getAttribute('data-id'));
+                const idB = parseInt(b.getAttribute('data-id'));
+                
+                if (sortOption === 'price_asc') return priceA - priceB;
+                if (sortOption === 'price_desc') return priceB - priceA;
+                if (sortOption === 'newest') return idB - idA;
+                
+                // Default sorting (by ID ascending)
+                return idA - idB;
+            });
+            
+            // Re-append sorted elements to the DOM
+            visibleProducts.forEach(product => productsGrid.appendChild(product));
+            
+            // Update results count
+            if(visibleCount > 0) {
+                resultsCount.innerText = `Showing 1-${visibleCount} of ${products.length}`;
+            } else {
+                resultsCount.innerText = `No products found`;
+            }
+        }
+        
+        // Event Listeners
+        if (searchInput) {
+            searchInput.addEventListener('input', filterAndSortProducts);
+        }
+        
+        if (priceRange) {
+            priceRange.addEventListener('input', function() {
+                priceValueText.innerText = parseInt(this.value).toLocaleString();
+                filterAndSortProducts();
+            });
+        }
+        
+        if (sortSelect) {
+            sortSelect.addEventListener('change', filterAndSortProducts);
+        }
+        
+        tagBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active class
+                tagBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                activeTag = this.getAttribute('data-tag');
+                filterAndSortProducts();
+            });
+        });
+    });
 </script>
 @endsection
