@@ -566,6 +566,7 @@
         </div>
     </section>
 
+    {{-- 
     <!-- Featured Categories Tabs -->
     <section class="featured-categories" style="padding: 60px 0; background: var(--white);">
         <div class="container">
@@ -704,6 +705,7 @@
             </div>
         </div>
     </section>
+    --}}
 
     <!-- Banner Middle / Video style visual -->
     <section class="visual-promotion">

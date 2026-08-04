@@ -1859,13 +1859,14 @@ img {
 
 .category-hero {
     position: relative;
-    height: 280px;
+    height: 580px;
     background-size: cover;
-    background-position: center;
+    background-position: right center;
+    background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: flex-start;
+    text-align: left;
     color: #fff;
 }
 
@@ -1875,15 +1876,16 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45));
     z-index: 1;
 }
 
 .category-hero-content {
     position: relative;
     z-index: 2;
-    max-width: 800px;
-    padding: 0 20px;
+    max-width: 480px;
+    padding: 0 60px;
+    text-align: left;
 }
 
 .category-hero-content h1 {
