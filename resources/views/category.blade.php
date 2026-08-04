@@ -5,7 +5,7 @@
 @section('content')
 <div class="category-page">
     <!-- Category Hero Header (Primebeds Style) -->
-    <div class="category-hero" style="background-image: url('{{ $gender_slug === 'little-boys' ? 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' : asset('assets/images/little_girls_banner.png') }}')">
+    <div class="category-hero" style="background-image: url('{{ $gender_slug === 'little-boys' ? 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' : asset('assets/images/little_girls_banner.png') }}'); background-position: {{ $gender_slug === 'little-boys' ? 'center center' : 'center 20%' }};">
         <div class="hero-overlay"></div>
         <div class="category-hero-content">
             <h1>& {{ $category }}</h1>

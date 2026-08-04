@@ -1861,12 +1861,12 @@ img {
     position: relative;
     height: 580px;
     background-size: cover;
-    background-position: right center;
+    background-position: center center;
     background-repeat: no-repeat;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    text-align: left;
+    justify-content: center;
+    text-align: center;
     color: #fff;
 }
 
@@ -1883,9 +1883,9 @@ img {
 .category-hero-content {
     position: relative;
     z-index: 2;
-    max-width: 480px;
-    padding: 0 60px;
-    text-align: left;
+    max-width: 600px;
+    padding: 0 20px;
+    text-align: center;
 }
 
 .category-hero-content h1 {
