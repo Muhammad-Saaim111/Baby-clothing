@@ -51,6 +51,23 @@
                 </div>
             </div>
 
+            <!-- Filter by Size Box -->
+            <div class="sidebar-box">
+                <h3 class="box-title">Filter by Size</h3>
+                <div class="box-content">
+                    <div class="size-filter-grid" id="sizeFilterGrid">
+                        <button class="size-btn active" data-size="all">All</button>
+                        <button class="size-btn" data-size="1-2Y">1-2Y</button>
+                        <button class="size-btn" data-size="2-3Y">2-3Y</button>
+                        <button class="size-btn" data-size="3-4Y">3-4Y</button>
+                        <button class="size-btn" data-size="4-5Y">4-5Y</button>
+                        <button class="size-btn" data-size="5-6Y">5-6Y</button>
+                        <button class="size-btn" data-size="6-7Y">6-7Y</button>
+                        <button class="size-btn" data-size="7-8Y">7-8Y</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Need Help Box -->
             <div class="sidebar-box help-box">
                 <div class="help-box-inner">
@@ -67,7 +84,7 @@
             <!-- Toolbar / Filter Bar (Primebeds style) -->
             <div class="catalog-toolbar">
                 <div class="toolbar-left">
-                    <button class="filter-toggle-btn"><i class="fa-solid fa-sliders"></i> Filter</button>
+
                     <div class="quick-tags" id="quickTags">
                         <button class="tag-btn active" data-tag="all">All</button>
                         <button class="tag-btn" data-tag="featured">Featured</button>
@@ -94,7 +111,7 @@
             <!-- Products Grid -->
             <div class="catalog-products-grid layout-3" id="productsGrid">
                 @foreach($products as $prodId => $prod)
-                <div class="ms-card product-item" data-id="{{ $prodId }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}">
+                <div class="ms-card product-item" data-id="{{ $prodId }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}" data-sizes="{{ implode(',', $prod['sizes'] ?? []) }}">
                     <div class="ms-img-wrapper">
                         @if(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
@@ -144,6 +161,7 @@
         const priceValueText = document.getElementById('priceValueText');
         const sortSelect = document.getElementById('sortSelect');
         const tagBtns = document.querySelectorAll('.tag-btn');
+        const sizeBtns = document.querySelectorAll('.size-btn');
         const productsGrid = document.getElementById('productsGrid');
         const resultsCount = document.getElementById('resultsCount');
         
@@ -151,6 +169,7 @@
         let products = Array.from(document.querySelectorAll('.product-item'));
         
         let activeTag = 'all';
+        let activeSize = 'all';
 
         function filterAndSortProducts() {
             const searchTerm = searchInput.value.toLowerCase();
@@ -182,6 +201,12 @@
                 if (activeTag === 'bestsellers' && id % 3 !== 0) isMatch = false;
                 if (activeTag === 'toprated' && id > 10) isMatch = false;
                 if (activeTag === 'new' && id < 10) isMatch = false;
+
+                // Size filter
+                if (activeSize !== 'all') {
+                    const sizes = product.getAttribute('data-sizes') || '';
+                    if (!sizes.includes(activeSize)) isMatch = false;
+                }
                 
                 if (isMatch) {
                     product.classList.remove('hidden');
@@ -237,11 +262,19 @@
         
         tagBtns.forEach(btn => {
             btn.addEventListener('click', function() {
-                // Update active class
                 tagBtns.forEach(b => b.classList.remove('active'));
                 this.classList.add('active');
-                
                 activeTag = this.getAttribute('data-tag');
+                filterAndSortProducts();
+            });
+        });
+
+        // Size filter buttons
+        sizeBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                sizeBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                activeSize = this.getAttribute('data-size');
                 filterAndSortProducts();
             });
         });
