@@ -110,19 +110,19 @@
 
             <!-- Products Grid -->
             <div class="catalog-products-grid layout-3" id="productsGrid">
-                @foreach($products as $prodId => $prod)
-                <div class="ms-card product-item" data-id="{{ $prodId }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}" data-sizes="{{ implode(',', $prod['sizes'] ?? []) }}">
-                    <div class="ms-img-wrapper">
+                @foreach($products as $prod)
+                <div class="ms-card product-item" data-id="{{ $prod['id'] }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}" data-sizes="{{ implode(',', $prod['sizes'] ?? []) }}">
+                    <div class="ms-img-wrapper" @if(in_array($prod['id'], [9, 16, 17])) style="aspect-ratio: 1 / 1; background: transparent;" @endif>
                         @if(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
-                        <a href="{{ route('product.show', $prodId) }}">
-                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if($prodId == 16 || $prodId == 17) style="object-fit: contain !important; transform: scale(1.15);" @endif>
+                        <a href="{{ route('product.show', $prod['id']) }}">
+                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if(in_array($prod['id'], [9, 16, 17])) style="object-fit: contain !important; transform: scale(1.15);" @endif>
                         </a>
                         <button class="grid-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
                     </div>
                     <div class="ms-details">
-                        <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>
+                        <h4 class="ms-title"><a href="{{ route('product.show', $prod['id']) }}">{{ $prod['name'] }}</a></h4>
                         <div class="ms-price">
                             @if(isset($prod['old_price']))
                                 <span class="old-price">Rs. {{ number_format($prod['old_price']) }}</span>

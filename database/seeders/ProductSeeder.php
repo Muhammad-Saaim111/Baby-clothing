@@ -107,7 +107,7 @@ class ProductSeeder extends Seeder
                 'price' => 1450,
                 'old_price' => 1750,
                 'description' => 'A gorgeous peach sweatshirt featuring a gold star and "FORGET THE RULES" lettering. Gentle, stylish, and perfect for every day.',
-                'image_path' => 'assets/images/products/media__1785749558563_front.jpg',
+                'image_path' => 'assets/images/products/media__9_front.jpg',
                 'category' => 'Little Girls',
                 'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Soft pastel peach tone', 'Gold glitter star detailing', 'Relaxed fit for easy movement', 'Breathable cotton blend'])
