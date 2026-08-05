@@ -5,10 +5,10 @@
 @section('content')
 <div class="category-page">
     <!-- Category Hero Header (Primebeds Style) -->
-    <div class="category-hero" style="background-image: url('{{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? 'https://images.unsplash.com/photo-1758782213532-bbb5fd89885e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80' : asset('assets/images/little_girls_banner.png') }}'); background-position: {{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? 'center 30%' : 'center 20%' }};">
+    <div class="category-hero" style="background-image: url('{{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? asset('assets/images/little_boys_banner.png') : asset('assets/images/little_girls_banner.png') }}'); background-position: {{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? 'center 30%' : 'center 20%' }};">
         <div class="hero-overlay"></div>
         <div class="category-hero-content">
-            <h1>& {{ $category }}</h1>
+            <h1>{{ $category }}</h1>
             <p>Handcrafted for comfort, designed for style. Find your perfect fit.</p>
             <div class="hero-breadcrumbs">
                 <a href="/">Home</a> / <span>{{ $category }}</span>
@@ -109,25 +109,30 @@
             </div>
 
             <!-- Products Grid -->
-            <div class="catalog-products-grid layout-3" id="productsGrid">
+            <div class="catalog-products-grid layout-3 stagger-children" id="productsGrid">
                 @foreach($products as $prod)
                 <div class="ms-card product-item" data-id="{{ $prod['id'] }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}" data-sizes="{{ implode(',', $prod['sizes'] ?? []) }}">
                     <div class="ms-img-wrapper" @if(in_array($prod['id'], [9, 16, 17])) style="aspect-ratio: 1 / 1; background: transparent;" @endif>
                         @if(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
+                        <button class="grid-wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
                         <a href="{{ route('product.show', $prod['id']) }}">
                             <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if(in_array($prod['id'], [9, 16, 17])) style="object-fit: contain !important; transform: scale(1.15);" @endif>
                         </a>
-                        <button class="grid-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
+                        <div class="ms-quick-btn">
+                            <a href="{{ route('product.show', $prod['id']) }}" class="quick-view-link">Quick View <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
                     </div>
                     <div class="ms-details">
                         <h4 class="ms-title"><a href="{{ route('product.show', $prod['id']) }}">{{ $prod['name'] }}</a></h4>
-                        <div class="ms-price">
-                            @if(isset($prod['old_price']))
-                                <span class="old-price">Rs. {{ number_format($prod['old_price']) }}</span>
-                            @endif
-                            <span class="new-price">Rs. {{ number_format($prod['price']) }}</span>
+                        <div class="ms-price-row">
+                            <div class="ms-price">
+                                @if(isset($prod['old_price']))
+                                    <span class="old-price">Rs. {{ number_format($prod['old_price']) }}</span>
+                                @endif
+                                <span class="new-price">Rs. {{ number_format($prod['price']) }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

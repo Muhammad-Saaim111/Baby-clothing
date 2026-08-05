@@ -154,7 +154,7 @@
         @if(count($related) > 0)
         <section class="related-products-section">
             <h2 class="section-subtitle-related">You May Also Like</h2>
-            <div class="related-grid">
+            <div class="related-grid stagger-children">
                 @foreach($related as $relId => $relProd)
                 <div class="related-card">
                     <div class="related-img-wrapper">
@@ -233,8 +233,14 @@
 <script>
     function switchView(imageUrl, element) {
         const mainImg = document.getElementById('mainProductImage');
-        mainImg.src = imageUrl;
-        mainImg.style.objectPosition = 'center center';
+        mainImg.style.opacity = '0';
+        mainImg.style.transform = 'scale(0.96)';
+        setTimeout(() => {
+            mainImg.src = imageUrl;
+            mainImg.style.objectPosition = 'center center';
+            mainImg.style.opacity = '1';
+            mainImg.style.transform = 'scale(1)';
+        }, 180);
         document.querySelectorAll('.thumb-btn').forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
     }

@@ -14,13 +14,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}?v=3.2">
 </head>
 <body>
 
     <!-- Top Announcement Bar -->
     <div class="announcement-bar">
-        Free Shipping on all orders over Rs. 5,000! Shop Now
+        <div class="ticker-wrapper">
+            <div class="ticker-content">
+                <span><span class="divider">⚡</span> Free Shipping on all orders over Rs. 5,000! Shop Now</span>
+                <span><span class="divider">⚡</span> Pre-Winter Sale up to 30% Off. Shop Now</span>
+                <span><span class="divider">⚡</span> Handcrafted for comfort, designed for style</span>
+            </div>
+            <div class="ticker-content">
+                <span><span class="divider">⚡</span> Free Shipping on all orders over Rs. 5,000! Shop Now</span>
+                <span><span class="divider">⚡</span> Pre-Winter Sale up to 30% Off. Shop Now</span>
+                <span><span class="divider">⚡</span> Handcrafted for comfort, designed for style</span>
+            </div>
+        </div>
     </div>
 
     <!-- Main Header -->
@@ -37,18 +48,32 @@
             <!-- Navigation Links -->
             <nav class="desktop-nav">
                 <ul>
-                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     <li class="has-dropdown">
-                        <a href="{{ route('category.show', 'shirts') }}">Shirts <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i></a>
+                        <a href="{{ route('category.show', 'little-boys') }}">Boys <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i></a>
                         <ul class="dropdown">
-                            <li><a href="#">New Born</a></li>
-                            <li><a href="{{ route('category.show', 'little-boys') }}">Little Boys</a></li>
-                            <li><a href="{{ route('category.show', 'little-girls') }}">Little Girls</a></li>
+                            <li><a href="{{ route('category.show', 'little-boys') }}">All Boys</a></li>
+                            <li><a href="{{ route('category.show', 'little-boys') }}">Sweatshirts</a></li>
+                            <li><a href="{{ route('category.show', 'little-boys') }}">Shirts</a></li>
                         </ul>
                     </li>
-
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#" class="sale-link">Sale</a></li>
+                    <li class="has-dropdown">
+                        <a href="{{ route('category.show', 'little-girls') }}">Girls <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="{{ route('category.show', 'little-girls') }}">All Girls</a></li>
+                            <li><a href="{{ route('category.show', 'little-girls') }}">Sweatshirts</a></li>
+                            <li><a href="{{ route('category.show', 'little-girls') }}">Tops</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-dropdown">
+                        <a href="{{ route('category.show', 'new-born') }}">New Born <i class="fas fa-chevron-down" style="font-size:0.7rem; margin-left:3px;"></i></a>
+                        <ul class="dropdown">
+                            <li><a href="{{ route('category.show', 'new-born') }}">All New Born</a></li>
+                            <li><a href="{{ route('category.show', 'new-born') }}">Rompers</a></li>
+                            <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" class="sale-link">Hot Sale</a></li>
                 </ul>
             </nav>
 
@@ -125,5 +150,40 @@
         </div>
     </footer>
 
+    <!-- Scroll Reveal JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Select all major sections and static components (stagger-children is animated via parent's revealed class to avoid slider sliding bugs)
+            const selector = 'section, .ms-grid, .category-showcase-grid, .product-detail-page, .main-catalog-container, .catalog-sidebar';
+            const elements = document.querySelectorAll(selector);
+            
+            elements.forEach(el => {
+                // Skip hero sections and stagger-children containers from direct reveal effect
+                if (!el.classList.contains('hero-section') && !el.classList.contains('stagger-children')) {
+                    el.classList.add('reveal-on-scroll');
+                }
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                    } else {
+                        // Remove revealed class when out of view to allow re-triggering animations
+                        entry.target.classList.remove('revealed');
+                    }
+                });
+            }, {
+                threshold: 0.08, // Reveal when 8% is visible
+                rootMargin: "0px 0px -60px 0px"
+            });
+            
+            elements.forEach(el => {
+                if (el.classList.contains('reveal-on-scroll')) {
+                    observer.observe(el);
+                }
+            });
+        });
+    </script>
 </body>
 </html>

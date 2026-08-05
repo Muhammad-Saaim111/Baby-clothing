@@ -6,11 +6,11 @@
     <section class="hero-section">
         <div class="hero-slider">
             <div class="hero-slide active">
-                <div class="hero-bg" style="background-image: url('https://images.unsplash.com/photo-1519689680058-324335c77eba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+                <div class="hero-bg" style="background-image: url('{{ asset('assets/images/home_banner_new.jpg') }}');"></div>
                 <div class="hero-overlay"></div>
                 <div class="hero-container">
                     <div class="hero-content">
-                        <span class="hero-subtitle">New Autumn Collection</span>
+                        <span class="hero-subtitle">New Winter Collection</span>
                         <h1 class="hero-title">Softness in Every Thread</h1>
                         <p class="hero-description">Handcrafted from 100% organic cotton, keeping your baby comfortable and happy all day long.</p>
                         <div class="hero-actions">
@@ -23,6 +23,7 @@
         </div>
     </section>
 
+    {{--
     <!-- Brand Highlights -->
     <section class="brand-highlights">
         <div class="highlights-container">
@@ -68,71 +69,136 @@
             </div>
         </div>
     </section>
+    --}}
+
+    <!-- Shop by Category -->
+    <section class="category-showcase">
+        <div class="bg-blob blob-peach" style="top: 10%; left: -100px;"></div>
+        <div class="bg-blob blob-gold" style="bottom: 10%; right: -80px;"></div>
+        <div class="container">
+            <div class="section-title text-center">
+                <span class="section-tagline">Curated Collections</span>
+                <h2>Shop by Category</h2>
+                <div class="title-divider"></div>
+            </div>
+            
+            <div class="deals-slider-container">
+                <div class="slider-wrapper">
+                    <div class="slider-track category-track stagger-children" id="catTrack">
+                        <!-- Category 1 -->
+                        <a href="#" class="showcase-card">
+                            <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_baby.jpg') }}');"></div>
+                            <div class="showcase-overlay"></div>
+                            <div class="showcase-content">
+                                <span>Pure Comfort</span>
+                                <h3>Baby (0-2 Years)</h3>
+                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                        
+                        <!-- Category 2 -->
+                        <a href="#" class="showcase-card">
+                            <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_toddler.jpg') }}');"></div>
+                            <div class="showcase-overlay"></div>
+                            <div class="showcase-content">
+                                <span>Play Ready</span>
+                                <h3>Toddler (2-5 Years)</h3>
+                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+
+                        <!-- Category 3 -->
+                        <a href="#" class="showcase-card">
+                            <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_kids.jpg') }}');"></div>
+                            <div class="showcase-overlay"></div>
+                            <div class="showcase-content">
+                                <span>Active Kids</span>
+                                <h3>Kids (5-8 Years)</h3>
+                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                        
+                        <!-- Category 4 -->
+                        <a href="#" class="showcase-card">
+                            <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_accessories.jpg') }}');"></div>
+                            <div class="showcase-overlay"></div>
+                            <div class="showcase-content">
+                                <span>Finishing Touches</span>
+                                <h3>Cute Accessories</h3>
+                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Deals of the Week -->
     <section class="deals-section">
+        <div class="bg-blob blob-olive" style="top: 20%; right: -50px;"></div>
+        <div class="bg-blob blob-peach" style="bottom: 10%; left: -120px;"></div>
         <div class="container">
-            <div class="section-title-row">
-                <div class="section-title">
+            <div class="section-title-row deals-title-row">
+                <div class="section-title text-center" style="margin-bottom: 0;">
                     <span class="section-tagline">Limited Time Offers</span>
                     <h2>Deals Of The Week</h2>
+                    <div class="title-divider"></div>
                 </div>
-                <a href="#" class="btn-link">View All <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="#" class="btn-link deals-view-all">View All <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             <div class="deals-slider-container">
-                <button class="slider-arrow left-arrow" id="prevDeal"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="slider-wrapper">
-                    <div class="deals-grid slider-track deals-track" id="dealsTrack">
+                    <div class="deals-grid slider-track deals-track stagger-children" id="dealsTrack">
                         <!-- Deal 1 -->
                         <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('https://images.unsplash.com/photo-1555009393-f20bdb245c4d?auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_jumpsuits.jpg') }}');"></div>
                             <div class="deal-overlay"></div>
                             <div class="deal-content">
                                 <span class="discount-badge">20% OFF</span>
                                 <h3>Organic Jumpsuits</h3>
                                 <p>Soft and gentle baby jumpsuits made from pure organic cotton.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-chevron-right"></i></a>
+                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
 
                         <!-- Deal 2 -->
                         <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_knitwear.jpg') }}');"></div>
                             <div class="deal-overlay"></div>
                             <div class="deal-content">
                                 <span class="discount-badge">15% OFF</span>
                                 <h3>Cozy Autumn Knitwear</h3>
                                 <p>Comfortable knit cardigans and sweaters for chilly evening outings.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-chevron-right"></i></a>
+                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
 
                         <!-- Deal 3 -->
                         <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_playwear.jpg') }}');"></div>
                             <div class="deal-overlay"></div>
                             <div class="deal-content">
                                 <span class="discount-badge">30% OFF</span>
                                 <h3>Summer Playwear</h3>
                                 <p>Lightweight and breathable cotton outfits perfect for active toddlers.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-chevron-right"></i></a>
+                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
 
                         <!-- Deal 4 -->
                         <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=800&q=80');"></div>
+                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_sleepwear.jpg') }}');"></div>
                             <div class="deal-overlay"></div>
                             <div class="deal-content">
                                 <span class="discount-badge">Buy 1 Get 1</span>
                                 <h3>Organic Sleepwear</h3>
                                 <p>Keep your baby snug and comfortable all night long.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-chevron-right"></i></a>
+                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="slider-arrow right-arrow" id="nextDeal"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -152,6 +218,12 @@
             gap: 30px;
             transition: transform 0.5s ease-in-out;
             width: 100%;
+        }
+        .deals-track {
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
+        }
+        .category-track {
+            transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1) !important;
         }
         .deals-track .deal-card {
             flex: 0 0 calc(50% - 15px) !important;
@@ -208,39 +280,53 @@
             flex: 0 0 calc(25% - 22.5px) !important;
             display: flex !important;
             flex-direction: column;
-            background: #FAFAFA;
-            border-radius: 8px;
+            background: #ffffff;
+            border-radius: 20px;
             overflow: hidden;
             border: 1px solid var(--border-soft);
+            box-shadow: 0 4px 15px rgba(108, 132, 119, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ms-track .ms-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(108, 132, 119, 0.1);
+            border-color: rgba(108, 132, 119, 0.25);
         }
         .ms-img-wrapper {
             position: relative;
             width: 100%;
             padding-top: 75%;
+            overflow: hidden;
         }
         .ms-img-wrapper img {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             object-fit: contain;
-            background: #fff;
+            background: #ffffff;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .ms-track .ms-card:hover .ms-img-wrapper img {
+            transform: scale(1.05);
         }
         .ms-discount {
             position: absolute;
             top: 10px; right: 10px;
-            background: #FFB822;
+            background: var(--accent-peach);
             color: #fff;
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 600;
             z-index: 2;
+            box-shadow: 0 4px 8px rgba(211, 158, 130, 0.2);
         }
         .ms-details {
-            padding: 15px;
+            padding: 18px 15px;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            background: #ffffff;
         }
         .ms-header {
             display: flex;
@@ -248,22 +334,44 @@
             align-items: center;
         }
         .ms-title {
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 0.92rem;
+            font-weight: 400;
             margin: 0;
             color: var(--dark-charcoal);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            transition: color 0.3s;
+        }
+        .ms-track .ms-card:hover .ms-title {
+            color: var(--accent-peach);
         }
         .ms-wishlist {
             background: none;
             border: none;
             cursor: pointer;
-            color: var(--text-gray);
+            color: var(--slate-gray);
             font-size: 1.1rem;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
         }
-        .ms-wishlist:hover { color: var(--primary-olive); }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            14% { transform: scale(1.25); }
+            28% { transform: scale(1); }
+            42% { transform: scale(1.25); }
+            70% { transform: scale(1); }
+        }
+        .ms-wishlist:hover {
+            color: #e28d75;
+            transform: scale(1.1);
+        }
+        .ms-wishlist:hover i {
+            animation: heartbeat 1.2s infinite;
+        }
         .ms-price {
             display: flex;
             justify-content: flex-end;
@@ -272,11 +380,12 @@
         }
         .old-price {
             text-decoration: line-through;
-            color: #999;
+            color: var(--slate-gray);
+            opacity: 0.7;
             font-size: 0.8rem;
         }
         .new-price {
-            font-weight: 600;
+            font-weight: 700;
             color: var(--dark-charcoal);
             font-size: 1rem;
         }
@@ -428,6 +537,7 @@
             }
             
             function startInterval() {
+                clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, intervalTime);
             }
             
@@ -437,15 +547,26 @@
             }
             
             startInterval();
+            
+            // Pause auto-sliding on hover
+            track.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            // Resume auto-sliding on mouse leave
+            track.addEventListener('mouseleave', () => {
+                startInterval();
+            });
+
             window.addEventListener('resize', updateSlider);
         }
 
         document.addEventListener('DOMContentLoaded', function() {
             // Init Deals Slider (2 items desktop, 1 tablet)
-            initSlider('dealsTrack', 'prevDeal', 'nextDeal', 2, 1, 4000);
+            initSlider('dealsTrack', 'prevDeal', 'nextDeal', 2, 1, 2500);
             
             // Init Category Slider (3 items desktop, 2 tablet)
-            initSlider('catTrack', 'prevCat', 'nextCat', 3, 2, 4000);
+            initSlider('catTrack', null, null, 3, 2, 2500);
             
             // Init Most Selling Slider (4 items desktop, 2 tablet)
             initSlider('msTrack', 'prevMs', 'nextMs', 4, 2, 4000);
@@ -457,71 +578,12 @@
         });
     </script>
 
-    <!-- Shop by Category -->
-    <section class="category-showcase">
-        <div class="container">
-            <div class="section-title text-center">
-                <span class="section-tagline">Curated Collections</span>
-                <h2>Shop by Category</h2>
-                <div class="title-divider"></div>
-            </div>
-            
-            <div class="deals-slider-container">
-                <button class="slider-arrow left-arrow" id="prevCat"><i class="fa-solid fa-chevron-left"></i></button>
-                <div class="slider-wrapper">
-                    <div class="slider-track category-track" id="catTrack">
-                        <!-- Category 1 -->
-                        <a href="#" class="showcase-card">
-                            <div class="showcase-bg" style="background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                            <div class="showcase-overlay"></div>
-                            <div class="showcase-content">
-                                <span>Pure Comfort</span>
-                                <h3>Baby (0-2 Years)</h3>
-                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
-                        
-                        <!-- Category 2 -->
-                        <a href="#" class="showcase-card">
-                            <div class="showcase-bg" style="background-image: url('https://images.unsplash.com/photo-1522771930-78848d9293e8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
-                            <div class="showcase-overlay"></div>
-                            <div class="showcase-content">
-                                <span>Play Ready</span>
-                                <h3>Toddler (2-5 Years)</h3>
-                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
 
-                        <!-- Category 3 -->
-                        <a href="#" class="showcase-card">
-                            <div class="showcase-bg" style="background-image: url('https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80');"></div>
-                            <div class="showcase-overlay"></div>
-                            <div class="showcase-content">
-                                <span>Active Kids</span>
-                                <h3>Kids (5-8 Years)</h3>
-                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
-                        
-                        <!-- Category 4 -->
-                        <a href="#" class="showcase-card">
-                            <div class="showcase-bg" style="background-image: url('https://images.unsplash.com/photo-1503919005314-30d93d07d823?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
-                            <div class="showcase-overlay"></div>
-                            <div class="showcase-content">
-                                <span>Finishing Touches</span>
-                                <h3>Cute Accessories</h3>
-                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <button class="slider-arrow right-arrow" id="nextCat"><i class="fa-solid fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </section>
 
     <!-- Most Selling Products -->
-    <section class="most-selling" style="padding: 60px 0; background: var(--white);">
+    <section class="most-selling" style="padding: 20px 0; background: var(--white);">
+        <div class="bg-blob blob-gold" style="top: 5%; left: -90px;"></div>
+        <div class="bg-blob blob-olive" style="bottom: 5%; right: -100px;"></div>
         <div class="container">
             <div class="section-title-row" style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--border-soft); padding-bottom: 15px; margin-bottom: 30px;">
                 <h2 style="font-size: 1.5rem; font-weight: 500; color: var(--dark-charcoal); margin: 0; position: relative; display: inline-block;">
@@ -534,27 +596,28 @@
             <div class="slider-container" style="position: relative;">
                 <button class="slider-arrow left-arrow" id="prevMs"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="slider-wrapper">
-                    <div class="slider-track ms-track" id="msTrack">
+                    <div class="slider-track ms-track stagger-children" id="msTrack">
                         @foreach($products as $prodId => $prod)
                         <div class="ms-card">
                             <div class="ms-img-wrapper">
                                 @if(isset($prod['old_price']))
                                     <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                 @endif
+                                <button class="ms-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
                                 <a href="{{ route('product.show', $prodId) }}">
-                                    <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                    <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                    <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
                                 </a>
                             </div>
                             <div class="ms-details">
-                                <div class="ms-header">
-                                    <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>
-                                    <button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button>
-                                </div>
-                                <div class="ms-price">
-                                    @if(isset($prod['old_price']))
-                                        <span class="old-price">Rs. {{ number_format($prod['old_price']) }}</span>
-                                    @endif
-                                    <span class="new-price">Rs. {{ number_format($prod['price']) }}</span>
+                                <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>
+                                <div class="ms-price-row">
+                                    <div class="ms-price">
+                                        @if(isset($prod['old_price']))
+                                            <span class="old-price">Rs. {{ number_format($prod['old_price']) }}</span>
+                                        @endif
+                                        <span class="new-price">Rs. {{ number_format($prod['price']) }}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -592,7 +655,8 @@
                                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                         @endif
                                         <a href="{{ route('product.show', $prodId) }}">
-                                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                            <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                            <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
                                         </a>
                                     </div>
                                     <div class="ms-details">
@@ -629,7 +693,8 @@
                                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                         @endif
                                         <a href="{{ route('product.show', $prodId) }}">
-                                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                            <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                                            <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
                                         </a>
                                     </div>
                                     <div class="ms-details">
@@ -709,7 +774,7 @@
 
     <!-- Banner Middle / Video style visual -->
     <section class="visual-promotion">
-        <div class="promo-bg" style="background-image: url('https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="promo-bg" style="background-image: url('{{ asset('assets/images/products/Generated Image August 05, 2026 - 6_54PM.jpg') }}');"></div>
         <div class="promo-overlay"></div>
         <div class="promo-content">
             <span class="promo-tag">Ethically Made</span>
@@ -721,6 +786,8 @@
 
     <!-- Testimonials Section (Primebeds Style) -->
     <section class="testimonials-section">
+        <div class="bg-blob blob-peach" style="top: 15%; right: -70px;"></div>
+        <div class="bg-blob blob-gold" style="bottom: 15%; left: -110px;"></div>
         <div class="container">
             <div class="section-title text-center">
                 <span class="section-tagline">Happy Parents</span>
@@ -728,9 +795,10 @@
                 <div class="title-divider"></div>
             </div>
 
-            <div class="testimonials-grid">
+            <div class="testimonials-grid stagger-children">
                 <!-- Review 1 -->
                 <div class="testimonial-card">
+                    <i class="fa-solid fa-quote-right quote-bg-icon"></i>
                     <div class="stars">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -740,13 +808,19 @@
                     </div>
                     <p class="review-text">"The cotton is unbelievably soft! It washes incredibly well and doesn't lose its shape or softness. Highly recommend to all new parents."</p>
                     <div class="reviewer-info">
-                        <span class="reviewer-name">Sarah M.</span>
-                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                        <div class="reviewer-profile">
+                            <div class="reviewer-avatar avatar-peach">S</div>
+                            <div class="reviewer-meta">
+                                <span class="reviewer-name">Sarah M.</span>
+                                <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Review 2 -->
                 <div class="testimonial-card">
+                    <i class="fa-solid fa-quote-right quote-bg-icon"></i>
                     <div class="stars">
                         <i class="fa-solid fa-star"></i>
                         <i class="fa-solid fa-star"></i>
@@ -756,8 +830,13 @@
                     </div>
                     <p class="review-text">"Absolutely love the design aesthetic. Very minimal, elegant, and fits my baby perfectly. The packaging was beautiful too!"</p>
                     <div class="reviewer-info">
-                        <span class="reviewer-name">Emma R.</span>
-                        <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                        <div class="reviewer-profile">
+                            <div class="reviewer-avatar avatar-terracotta">E</div>
+                            <div class="reviewer-meta">
+                                <span class="reviewer-name">Emma R.</span>
+                                <span class="verified-badge"><i class="fa-solid fa-circle-check"></i> Verified Buyer</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

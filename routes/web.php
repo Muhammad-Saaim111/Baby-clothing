@@ -26,6 +26,8 @@ Route::get('/category/{gender}', function ($gender) {
         $category_name = 'Little Boys';
     } elseif ($gender === 'little-girls') {
         $category_name = 'Little Girls';
+    } elseif ($gender === 'new-born') {
+        $category_name = 'New Born';
     } elseif ($gender === 'shirts') {
         $category_name = 'All Shirts';
     } else {
@@ -34,6 +36,9 @@ Route::get('/category/{gender}', function ($gender) {
     
     if ($gender === 'shirts') {
         $products = Product::all();
+    } elseif ($gender === 'new-born') {
+        // Fetch products with smaller sizes like 1-2Y to populate newborn catalog
+        $products = Product::where('sizes', 'like', '%1-2Y%')->take(6)->get();
     } else {
         $products = Product::where('category', $category_name)->get();
     }
