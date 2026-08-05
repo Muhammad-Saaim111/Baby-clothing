@@ -234,6 +234,7 @@
     function switchView(imageUrl, element) {
         const mainImg = document.getElementById('mainProductImage');
         mainImg.src = imageUrl;
+        mainImg.style.objectPosition = 'center center';
         document.querySelectorAll('.thumb-btn').forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
     }

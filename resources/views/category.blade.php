@@ -117,7 +117,7 @@
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
                         <a href="{{ route('product.show', $prodId) }}">
-                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
+                            <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if($prodId == 16) style="object-fit: contain !important; transform: scale(1.3);" @endif>
                         </a>
                         <button class="grid-wishlist-btn"><i class="fa-regular fa-heart"></i></button>
                     </div>

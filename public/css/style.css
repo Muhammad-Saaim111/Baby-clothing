@@ -1306,7 +1306,7 @@ img {
     background: #fff;
     border-radius: 12px;
     overflow: hidden;
-    aspect-ratio: 1 / 1.38;
+    aspect-ratio: 1 / 1.15;
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.02);
     border: 1px solid var(--border-soft);
     max-width: 550px;
@@ -2290,7 +2290,7 @@ img {
 }
 
 .catalog-products-grid .ms-img-wrapper {
-    aspect-ratio: 1 / 1.35;
+    aspect-ratio: 1 / 1.15;
     /* Crop to show exactly one panel */
     position: relative;
     overflow: hidden;

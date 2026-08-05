@@ -169,6 +169,17 @@ function get_products() {
             'category' => 'Little Girls',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Rich deep purple shade', 'Crisp white butterfly details', 'Double-stitched seams', 'High-grade cotton fleece']
+        ],
+        16 => [
+            'id' => 16,
+            'name' => 'Grey Little Things Sweatshirt',
+            'price' => 1450,
+            'old_price' => 1799,
+            'description' => 'An adorable grey sweatshirt featuring a beautiful butterfly design and "LITTLE THINGS" lettering. Soft, gentle, and absolutely charming.',
+            'image_path' => 'assets/images/products/media__16_front.jpg',
+            'category' => 'Little Boys',
+            'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
+            'features' => ['Premium cotton blend', 'Delicate butterfly graphic print', 'Ribbed neckline and cuffs', 'Warm and snug fit']
         ]
     ];
 }
