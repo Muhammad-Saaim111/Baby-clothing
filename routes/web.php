@@ -12,7 +12,7 @@ function get_products() {
             'old_price' => 1899,
             'description' => 'A trendy and comfortable black sweatshirt featuring a unique white splatter print. Perfect for casual wear and keeping your little one cozy.',
             'image_path' => 'assets/images/products/media__1785749405584_front.jpg',
-            'category' => 'Little Boys',
+            'category' => 'Little Girls',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['100% Premium Cotton Fleece', 'Ribbed cuffs and hem', 'Soft, breathable interior', 'Machine washable']
         ],
@@ -56,7 +56,7 @@ function get_products() {
             'old_price' => 1850,
             'description' => 'A lovely lavender sweatshirt detailed with a large, beautifully patterned butterfly. Perfect for little girls who love pretty details.',
             'image_path' => 'assets/images/products/media__1785749462105_front.jpg',
-            'category' => 'Little Girls',
+            'category' => 'Little Boys',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Ultra-soft cotton blend', 'Detailed butterfly graphic', 'Pastel lavender color shade', 'Cozy fleece lining']
         ],
@@ -78,7 +78,7 @@ function get_products() {
             'old_price' => 1599,
             'description' => 'A bright yellow sweatshirt featuring a sleek "LOS ANGELES CALIFORNIA" graphic print. A trendy street-style look for little boys.',
             'image_path' => 'assets/images/products/media__1785749528451_front.jpg',
-            'category' => 'Little Boys',
+            'category' => 'Little Girls',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Premium breathable cotton', 'Stylish city silhouette graphic', 'Comfortable relaxed fit', 'Bright, fade-resistant color']
         ],
@@ -122,7 +122,7 @@ function get_products() {
             'old_price' => 1650,
             'description' => 'A rich burgundy sweatshirt featuring a bold "AWESOME" text design. Cozy and durable, perfect for cool autumn outings.',
             'image_path' => 'assets/images/products/media__1785749593723_front.jpg',
-            'category' => 'Little Boys',
+            'category' => 'Little Girls',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Premium loopback terry fabric', 'Deep burgundy shade', 'Bold minimal design', 'Shrink-resistant knit']
         ],
@@ -144,7 +144,7 @@ function get_products() {
             'old_price' => 1699,
             'description' => 'A dream-like light purple sweatshirt patterned with adorable unicorns, castles, and stars. Perfect for little princess vibes.',
             'image_path' => 'assets/images/products/media__1785749616021_front.jpg',
-            'category' => 'Little Girls',
+            'category' => 'Little Boys',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Soft-touch cotton fabric', 'Dreamy all-over unicorn print', 'Elasticated cuffs for a snug fit', 'Gentle on skin']
         ],
@@ -155,7 +155,7 @@ function get_products() {
             'old_price' => 1799,
             'description' => 'A cute peach sweatshirt detailed with a large butterfly and a sweet text layout. Cozy and beautiful.',
             'image_path' => 'assets/images/products/media__1785749624016_front.jpg',
-            'category' => 'Little Girls',
+            'category' => 'Little Boys',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Lovely peach-pink color', 'Chic butterfly graphic', 'Warm loopback lining', 'Comfortable crew neckline']
         ],
