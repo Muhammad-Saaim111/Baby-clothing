@@ -170,6 +170,7 @@ function get_products() {
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Rich deep purple shade', 'Crisp white butterfly details', 'Double-stitched seams', 'High-grade cotton fleece']
         ],
+
         16 => [
             'id' => 16,
             'name' => 'Grey Little Things Sweatshirt',
@@ -180,6 +181,17 @@ function get_products() {
             'category' => 'Little Boys',
             'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
             'features' => ['Premium cotton blend', 'Delicate butterfly graphic print', 'Ribbed neckline and cuffs', 'Warm and snug fit']
+        ],
+        17 => [
+            'id' => 17,
+            'name' => 'Trendy Boys Sweatshirt',
+            'price' => 1499,
+            'old_price' => 1899,
+            'description' => 'A trendy and comfortable sweatshirt designed specially for little boys. Perfect for everyday casual wear.',
+            'image_path' => 'assets/images/products/media__17_front.jpg',
+            'category' => 'Little Boys',
+            'sizes' => ['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y'],
+            'features' => ['Soft and warm fabric', 'Trendy modern design', 'Durable stitching', 'Comfortable fit']
         ]
     ];
 }
