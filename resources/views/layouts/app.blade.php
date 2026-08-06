@@ -18,6 +18,56 @@
 </head>
 <body>
 
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer-overlay" id="mobileDrawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <a href="/" class="drawer-logo">
+                <img src="{{ asset('assets/images/logo_clean.png') }}" alt="AiM'EE Logo" style="height: 35px; width: auto; display: block;">
+            </a>
+            <button class="drawer-close-btn" id="drawerCloseBtn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="drawer-content">
+            <ul class="drawer-nav-links">
+                <li><a href="/">Home</a></li>
+                <li class="drawer-has-submenu">
+                    <div class="submenu-toggle-row">
+                        <a href="{{ route('category.show', 'little-boys') }}">Boys</a>
+                        <button class="submenu-toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+                    <ul class="drawer-submenu">
+                        <li><a href="{{ route('category.show', 'little-boys') }}">All Boys</a></li>
+                        <li><a href="{{ route('category.show', 'little-boys') }}">Sweatshirts</a></li>
+                        <li><a href="{{ route('category.show', 'little-boys') }}">Shirts</a></li>
+                    </ul>
+                </li>
+                <li class="drawer-has-submenu">
+                    <div class="submenu-toggle-row">
+                        <a href="{{ route('category.show', 'little-girls') }}">Girls</a>
+                        <button class="submenu-toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+                    <ul class="drawer-submenu">
+                        <li><a href="{{ route('category.show', 'little-girls') }}">All Girls</a></li>
+                        <li><a href="{{ route('category.show', 'little-girls') }}">Sweatshirts</a></li>
+                        <li><a href="{{ route('category.show', 'little-girls') }}">Tops</a></li>
+                    </ul>
+                </li>
+                <li class="drawer-has-submenu">
+                    <div class="submenu-toggle-row">
+                        <a href="{{ route('category.show', 'new-born') }}">New Born</a>
+                        <button class="submenu-toggle-btn"><i class="fas fa-chevron-down"></i></button>
+                    </div>
+                    <ul class="drawer-submenu">
+                        <li><a href="{{ route('category.show', 'new-born') }}">All New Born</a></li>
+                        <li><a href="{{ route('category.show', 'new-born') }}">Rompers</a></li>
+                        <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" class="sale-link">Hot Sale</a></li>
+            </ul>
+        </div>
+    </div>
+
     <!-- Top Announcement Bar -->
     <div class="announcement-bar">
         <div class="ticker-wrapper">
@@ -182,6 +232,45 @@
                 if (el.classList.contains('reveal-on-scroll')) {
                     observer.observe(el);
                 }
+            });
+
+            // Mobile Menu Drawer Functionality
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const drawerCloseBtn = document.getElementById('drawerCloseBtn');
+            const mobileDrawer = document.getElementById('mobileDrawer');
+            const mobileDrawerOverlay = document.getElementById('mobileDrawerOverlay');
+            
+            if (mobileMenuBtn && mobileDrawer && mobileDrawerOverlay) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileDrawer.classList.add('active');
+                    mobileDrawerOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                });
+                
+                function closeDrawer() {
+                    mobileDrawer.classList.remove('active');
+                    mobileDrawerOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+                
+                if (drawerCloseBtn) {
+                    drawerCloseBtn.addEventListener('click', closeDrawer);
+                }
+                mobileDrawerOverlay.addEventListener('click', closeDrawer);
+            }
+            
+            // Submenu Toggle inside Drawer
+            const submenuToggleBtns = document.querySelectorAll('.submenu-toggle-btn');
+            submenuToggleBtns.forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const parentLi = btn.closest('.drawer-has-submenu');
+                    const submenu = parentLi.querySelector('.drawer-submenu');
+                    if (submenu) {
+                        submenu.classList.toggle('active');
+                        btn.classList.toggle('active');
+                    }
+                });
             });
         });
     </script>
