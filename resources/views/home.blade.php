@@ -5,7 +5,7 @@
     <section class="hero-section">
         <a href="{{ route('category.show', 'little-boys') }}" class="hero-slider" style="display: block; text-decoration: none;">
             <div class="hero-slide active">
-                <div class="hero-bg" style="background-image: url('{{ asset('assets/images/home_banner_new.png') }}');"></div>
+                <div class="hero-bg" style="background-image: url('{{ asset('assets/images/Untitled design.jpg.jpeg') }}');"></div>
             </div>
         </a>
     </section>
