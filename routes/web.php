@@ -49,3 +49,9 @@ Route::get('/category/{gender}', function ($gender) {
         'products' => $products
     ]);
 })->name('category.show');
+
+Route::get('/clear', function() {
+    \Illuminate\Support\Facades\Artisan::call('view:clear');
+    \Illuminate\Support\Facades\Artisan::call('cache:clear');
+    return "Cache cleared successfully!";
+});
