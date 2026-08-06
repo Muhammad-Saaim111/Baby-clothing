@@ -402,6 +402,13 @@ img {
     /* Solid white left side */
 }
 
+.hero-slider {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
 .hero-slide {
     width: 100%;
     height: 100%;
@@ -425,6 +432,7 @@ img {
     height: 100%;
     background-size: cover;
     background-position: center center;
+    background-repeat: no-repeat;
 }
 
 .hero-overlay {
@@ -1573,9 +1581,9 @@ img {
         color: var(--dark-charcoal) !important;
     }
 
-    .hero-section {
+    .hero-section, .category-hero {
         height: auto !important;
-        aspect-ratio: 1717 / 916 !important;
+        aspect-ratio: 4 / 3 !important;
     }
 
     .category-showcase-grid {
@@ -1596,6 +1604,10 @@ img {
 }
 
 @media (max-width: 576px) {
+    .hero-section, .category-hero {
+        aspect-ratio: 1.2 / 1 !important;
+    }
+
     .luxury-product-grid {
         grid-template-columns: 1fr;
     }
