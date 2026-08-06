@@ -50,7 +50,10 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-button, input, select, textarea {
+button,
+input,
+select,
+textarea {
     font-family: inherit;
 }
 
@@ -143,7 +146,8 @@ img {
 }
 
 .ticker-content .divider {
-    color: #ff7c5c; /* Vibrant orange/coral matching the logo */
+    color: #ff7c5c;
+    /* Vibrant orange/coral matching the logo */
     font-size: 1.0rem;
     padding: 0;
     margin-right: 15px;
@@ -153,6 +157,7 @@ img {
     0% {
         transform: translate3d(0, 0, 0);
     }
+
     100% {
         transform: translate3d(-100%, 0, 0);
     }
@@ -212,7 +217,7 @@ img {
     padding-bottom: 6px;
 }
 
-.desktop-nav > ul > li > a::after {
+.desktop-nav>ul>li>a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -225,8 +230,8 @@ img {
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.desktop-nav > ul > li > a:hover::after,
-.desktop-nav > ul > li > a.active::after {
+.desktop-nav>ul>li>a:hover::after,
+.desktop-nav>ul>li>a.active::after {
     transform: scaleX(1);
     transform-origin: left;
 }
@@ -328,14 +333,37 @@ img {
 }
 
 @keyframes cartShake {
-    0% { transform: rotate(0deg); }
-    15% { transform: rotate(-10deg); }
-    30% { transform: rotate(10deg); }
-    45% { transform: rotate(-10deg); }
-    60% { transform: rotate(10deg); }
-    75% { transform: rotate(-5deg); }
-    90% { transform: rotate(5deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    15% {
+        transform: rotate(-10deg);
+    }
+
+    30% {
+        transform: rotate(10deg);
+    }
+
+    45% {
+        transform: rotate(-10deg);
+    }
+
+    60% {
+        transform: rotate(10deg);
+    }
+
+    75% {
+        transform: rotate(-5deg);
+    }
+
+    90% {
+        transform: rotate(5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .cart-icon:hover i {
@@ -366,9 +394,10 @@ img {
 .hero-section {
     position: relative;
     height: 85vh;
-    min-height: 600px;
+    min-height: 800px;
     overflow: hidden;
-    background-color: var(--white); /* Solid white left side */
+    background-color: var(--white);
+    /* Solid white left side */
 }
 
 .hero-slide {
@@ -380,6 +409,7 @@ img {
     0% {
         transform: scale(1);
     }
+
     100% {
         transform: scale(1.08);
     }
@@ -388,22 +418,15 @@ img {
 .hero-bg {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 65%;
-    height: 100%;
-    background-size: cover;
-    background-position: center center;
-    animation: kenBurns 16s cubic-bezier(0.16, 1, 0.3, 1) infinite alternate;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, #ffffff 35%, rgba(255, 255, 255, 0.8) 38%, rgba(255, 255, 255, 0) 48%);
-    z-index: 2;
+    background-size: cover;
+    background-position: center 30%;
+}
+
+.hero-overlay {
+    display: none;
 }
 
 .hero-container {
@@ -423,7 +446,8 @@ img {
     color: var(--dark-charcoal);
     text-align: left;
     z-index: 4;
-    padding-top: 115px; /* Push content further down */
+    padding-top: 115px;
+    /* Push content further down */
 }
 
 .hero-subtitle {
@@ -871,6 +895,7 @@ img {
     .deals-title-row {
         text-align: center;
     }
+
     .deals-view-all {
         position: static !important;
         margin: 20px auto 0;
@@ -1096,7 +1121,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(28, 34, 30, 0.5);
+    background: rgba(28, 34, 30, 0.15);
     z-index: 2;
 }
 
@@ -1105,6 +1130,7 @@ img {
     z-index: 3;
     max-width: 800px;
     padding: 0 40px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
 .promo-tag {
@@ -2215,7 +2241,7 @@ img {
 
 .category-hero {
     position: relative;
-    height: 580px;
+    height: 750px;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
@@ -2232,7 +2258,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45));
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.25));
     z-index: 1;
 }
 
@@ -3185,50 +3211,79 @@ img {
 }
 
 /* Stagger Reveal for Children */
-.stagger-children > * {
+.stagger-children>* {
     opacity: 0 !important;
     transform: translateY(60px) scale(0.96) !important;
     transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
     will-change: transform, opacity !important;
 }
 
-.stagger-children.revealed > *,
-.revealed .stagger-children > *,
-.revealed.stagger-children > * {
+.stagger-children.revealed>*,
+.revealed .stagger-children>*,
+.revealed.stagger-children>* {
     opacity: 1 !important;
     transform: translateY(0) scale(1) !important;
 }
 
-.stagger-children.revealed > *:nth-child(1),
-.revealed .stagger-children > *:nth-child(1),
-.revealed.stagger-children > *:nth-child(1) { transition-delay: 0.05s !important; }
-.stagger-children.revealed > *:nth-child(2),
-.revealed .stagger-children > *:nth-child(2),
-.revealed.stagger-children > *:nth-child(2) { transition-delay: 0.15s !important; }
-.stagger-children.revealed > *:nth-child(3),
-.revealed .stagger-children > *:nth-child(3),
-.revealed.stagger-children > *:nth-child(3) { transition-delay: 0.25s !important; }
-.stagger-children.revealed > *:nth-child(4),
-.revealed .stagger-children > *:nth-child(4),
-.revealed.stagger-children > *:nth-child(4) { transition-delay: 0.35s !important; }
-.stagger-children.revealed > *:nth-child(5),
-.revealed .stagger-children > *:nth-child(5),
-.revealed.stagger-children > *:nth-child(5) { transition-delay: 0.45s !important; }
-.stagger-children.revealed > *:nth-child(6),
-.revealed .stagger-children > *:nth-child(6),
-.revealed.stagger-children > *:nth-child(6) { transition-delay: 0.55s !important; }
-.stagger-children.revealed > *:nth-child(7),
-.revealed .stagger-children > *:nth-child(7),
-.revealed.stagger-children > *:nth-child(7) { transition-delay: 0.65s !important; }
-.stagger-children.revealed > *:nth-child(8),
-.revealed .stagger-children > *:nth-child(8),
-.revealed.stagger-children > *:nth-child(8) { transition-delay: 0.75s !important; }
-.stagger-children.revealed > *:nth-child(9),
-.revealed .stagger-children > *:nth-child(9),
-.revealed.stagger-children > *:nth-child(9) { transition-delay: 0.85s !important; }
-.stagger-children.revealed > *:nth-child(10),
-.revealed .stagger-children > *:nth-child(10),
-.revealed.stagger-children > *:nth-child(10) { transition-delay: 0.95s !important; }
+.stagger-children.revealed>*:nth-child(1),
+.revealed .stagger-children>*:nth-child(1),
+.revealed.stagger-children>*:nth-child(1) {
+    transition-delay: 0.05s !important;
+}
+
+.stagger-children.revealed>*:nth-child(2),
+.revealed .stagger-children>*:nth-child(2),
+.revealed.stagger-children>*:nth-child(2) {
+    transition-delay: 0.15s !important;
+}
+
+.stagger-children.revealed>*:nth-child(3),
+.revealed .stagger-children>*:nth-child(3),
+.revealed.stagger-children>*:nth-child(3) {
+    transition-delay: 0.25s !important;
+}
+
+.stagger-children.revealed>*:nth-child(4),
+.revealed .stagger-children>*:nth-child(4),
+.revealed.stagger-children>*:nth-child(4) {
+    transition-delay: 0.35s !important;
+}
+
+.stagger-children.revealed>*:nth-child(5),
+.revealed .stagger-children>*:nth-child(5),
+.revealed.stagger-children>*:nth-child(5) {
+    transition-delay: 0.45s !important;
+}
+
+.stagger-children.revealed>*:nth-child(6),
+.revealed .stagger-children>*:nth-child(6),
+.revealed.stagger-children>*:nth-child(6) {
+    transition-delay: 0.55s !important;
+}
+
+.stagger-children.revealed>*:nth-child(7),
+.revealed .stagger-children>*:nth-child(7),
+.revealed.stagger-children>*:nth-child(7) {
+    transition-delay: 0.65s !important;
+}
+
+.stagger-children.revealed>*:nth-child(8),
+.revealed .stagger-children>*:nth-child(8),
+.revealed.stagger-children>*:nth-child(8) {
+    transition-delay: 0.75s !important;
+}
+
+.stagger-children.revealed>*:nth-child(9),
+.revealed .stagger-children>*:nth-child(9),
+.revealed.stagger-children>*:nth-child(9) {
+    transition-delay: 0.85s !important;
+}
+
+.stagger-children.revealed>*:nth-child(10),
+.revealed .stagger-children>*:nth-child(10),
+.revealed.stagger-children>*:nth-child(10) {
+    transition-delay: 0.95s !important;
+}
 
 /* Enhanced General Product Cards (.ms-card) Hover */
 /* ===========================================================
@@ -3262,11 +3317,13 @@ img {
     background: linear-gradient(180deg, #FDFBF7 0%, #F6F2EC 100%) !important;
 }
 
-.ms-img-wrapper img, 
+.ms-img-wrapper img,
 .real-product-img {
     position: absolute !important;
-    top: 0 !important; left: 0 !important;
-    width: 100% !important; height: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: contain !important;
     padding: 14px !important;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -3310,14 +3367,28 @@ img {
 }
 
 @keyframes heartbeat {
-    0% { transform: scale(1); }
-    20% { transform: scale(1.28); }
-    40% { transform: scale(1); }
-    60% { transform: scale(1.28); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.28);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+
+    60% {
+        transform: scale(1.28);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
-.ms-wishlist:hover i, 
+.ms-wishlist:hover i,
 .grid-wishlist-btn:hover i {
     animation: heartbeat 0.8s infinite !important;
     color: #E28D75 !important;
@@ -3371,7 +3442,7 @@ img {
     text-transform: uppercase !important;
     letter-spacing: 1px !important;
     border-radius: 30px !important;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.12) !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12) !important;
     transition: all 0.3s !important;
     text-decoration: none !important;
 }
@@ -3510,12 +3581,29 @@ img {
 
 /* Wiggle animation for Category Cards on hover */
 @keyframes softWiggle {
-    0% { transform: rotate(0deg); }
-    20% { transform: rotate(-1.5deg); }
-    40% { transform: rotate(1deg); }
-    60% { transform: rotate(-1deg); }
-    80% { transform: rotate(0.5deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-1.5deg);
+    }
+
+    40% {
+        transform: rotate(1deg);
+    }
+
+    60% {
+        transform: rotate(-1deg);
+    }
+
+    80% {
+        transform: rotate(0.5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 .showcase-card {
@@ -3529,11 +3617,25 @@ img {
 
 /* Logo Heartbeat on Hover */
 @keyframes logoPulse {
-    0% { transform: scale(1); }
-    20% { transform: scale(1.1) rotate(-1deg); }
-    40% { transform: scale(1.05) rotate(1deg); }
-    60% { transform: scale(1.1) rotate(-0.5deg); }
-    85% { transform: scale(1); }
+    0% {
+        transform: scale(1);
+    }
+
+    20% {
+        transform: scale(1.1) rotate(-1deg);
+    }
+
+    40% {
+        transform: scale(1.05) rotate(1deg);
+    }
+
+    60% {
+        transform: scale(1.1) rotate(-0.5deg);
+    }
+
+    85% {
+        transform: scale(1);
+    }
 }
 
 .logo:hover img {
@@ -3544,7 +3646,8 @@ img {
 .bg-blob {
     position: absolute !important;
     pointer-events: none !important;
-    opacity: 0.15 !important; /* extremely faint so it remains premium and clean */
+    opacity: 0.15 !important;
+    /* extremely faint so it remains premium and clean */
     filter: blur(55px) !important;
     z-index: 0 !important;
     will-change: transform;
@@ -3575,11 +3678,21 @@ img {
 }
 
 @keyframes blobFloat {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    100% { transform: translate(35px, 25px) scale(1.1) rotate(60deg); }
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(35px, 25px) scale(1.1) rotate(60deg);
+    }
 }
 
 @keyframes blobFloatReverse {
-    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-    100% { transform: translate(-25px, 35px) scale(1.15) rotate(-60deg); }
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-25px, 35px) scale(1.15) rotate(-60deg);
+    }
 }

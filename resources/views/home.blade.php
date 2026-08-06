@@ -2,23 +2,10 @@
 
 @section('content')
 
-    <!-- Hero Section -->
     <section class="hero-section">
         <div class="hero-slider">
             <div class="hero-slide active">
-                <div class="hero-bg" style="background-image: url('{{ asset('assets/images/home_banner_new.jpg') }}');"></div>
-                <div class="hero-overlay"></div>
-                <div class="hero-container">
-                    <div class="hero-content">
-                        <span class="hero-subtitle">New Winter Collection</span>
-                        <h1 class="hero-title">Softness in Every Thread</h1>
-                        <p class="hero-description">Handcrafted from 100% organic cotton, keeping your baby comfortable and happy all day long.</p>
-                        <div class="hero-actions">
-                            <a href="#" class="btn btn-luxury">Shop Newborn</a>
-                            <a href="#" class="btn btn-outline">Explore More</a>
-                        </div>
-                    </div>
-                </div>
+                <div class="hero-bg" style="background-image: url('{{ asset('assets/images/home_banner_new.png') }}');"></div>
             </div>
         </div>
     </section>

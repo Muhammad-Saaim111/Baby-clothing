@@ -5,15 +5,7 @@
 @section('content')
 <div class="category-page">
     <!-- Category Hero Header (Primebeds Style) -->
-    <div class="category-hero" style="background-image: url('{{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? asset('assets/images/little_boys_banner.png') : asset('assets/images/little_girls_banner.png') }}'); background-position: {{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? 'center 30%' : 'center 20%' }};">
-        <div class="hero-overlay"></div>
-        <div class="category-hero-content">
-            <h1>{{ $category }}</h1>
-            <p>Handcrafted for comfort, designed for style. Find your perfect fit.</p>
-            <div class="hero-breadcrumbs">
-                <a href="/">Home</a> / <span>{{ $category }}</span>
-            </div>
-        </div>
+    <div class="category-hero" style="background-image: url('{{ ($gender_slug === 'little-boys' || $gender_slug === 'little boys') ? asset('assets/images/Aimee_Boys_Banner_High_Quality.jpg') : asset('assets/images/little_girls_banner.jpg') }}'); background-position: center center; background-size: cover;">
     </div>
 
     <div class="container main-catalog-container">
