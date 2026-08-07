@@ -132,7 +132,7 @@
                     <h2>Deals Of The Week</h2>
                     <div class="title-divider"></div>
                 </div>
-                <a href="#" class="btn-link deals-view-all">View All <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="#" class="btn-link" style="color: var(--dark-charcoal); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; display: flex; align-items: center; gap: 8px;">VIEW ALL <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             <div class="deals-slider-container">
                 <div class="slider-wrapper">
@@ -234,33 +234,6 @@
                 flex: 0 0 100% !important;
             }
         }
-        .slider-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 55px;
-            height: 55px;
-            background: var(--white);
-            border: none;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            z-index: 10;
-            color: var(--primary-olive);
-            font-size: 1.2rem;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .slider-arrow:hover {
-            background: var(--primary-olive);
-            color: var(--white);
-            box-shadow: 0 8px 25px rgba(108, 132, 119, 0.3);
-            transform: translateY(-50%) scale(1.1);
-        }
-        .left-arrow { left: -27px; }
-        .right-arrow { right: -27px; }
         
         /* Most Selling Products Slider */
         .ms-track .ms-card {
@@ -282,8 +255,40 @@
         .ms-img-wrapper {
             position: relative;
             width: 100%;
-            padding-top: 75%;
+            padding-top: 133%;
             overflow: hidden;
+        }
+        .absolute-wishlist {
+            position: absolute !important;
+            top: 45px !important;
+            right: 12px !important;
+            left: auto !important;
+            width: 32px !important;
+            height: 32px !important;
+            background: #ffffff !important;
+            border: 1px solid var(--border-soft) !important;
+            border-radius: 50% !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            color: var(--text-gray) !important;
+            font-size: 0.9rem !important;
+            transition: all 0.3s ease !important;
+            z-index: 10 !important;
+            opacity: 0 !important;
+            transform: translateY(-10px) !important;
+        }
+        .ms-img-wrapper:hover .absolute-wishlist {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+        .absolute-wishlist:hover {
+            color: #ff4747 !important;
+            border-color: #ff4747 !important;
+        }
+        .absolute-wishlist i.fa-solid {
+            color: #ff4747 !important;
         }
         .ms-img-wrapper img {
             position: absolute;
@@ -332,18 +337,6 @@
         }
         .ms-track .ms-card:hover .ms-title {
             color: var(--accent-peach);
-        }
-        .ms-wishlist {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--slate-gray);
-            font-size: 1.1rem;
-            padding: 0;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.3s ease;
         }
         @keyframes heartbeat {
             0% { transform: scale(1); }
@@ -466,20 +459,18 @@
                 window.dispatchEvent(new Event('resize'));
             }, 50);
         }
-        function initSlider(trackId, prevBtnId, nextBtnId, itemsPerViewDesktop, itemsPerViewTablet, intervalTime) {
+        function initSlider(trackId, intervalTime) {
             const track = document.getElementById(trackId);
             if (!track) return;
             const cards = track.children;
-            const prevBtn = document.getElementById(prevBtnId);
-            const nextBtn = document.getElementById(nextBtnId);
             
             let currentIndex = 0;
             let slideInterval;
             
             function getItemsPerView() {
                 if (window.innerWidth <= 576) return 1;
-                if (window.innerWidth <= 992) return itemsPerViewTablet;
-                return itemsPerViewDesktop;
+                if (window.innerWidth <= 992) return 2;
+                return 4;
             }
             
             function updateSlider() {
@@ -499,38 +490,9 @@
                 updateSlider();
             }
             
-            function prevSlide() {
-                const itemsPerView = getItemsPerView();
-                if (currentIndex > 0) {
-                    currentIndex--;
-                } else {
-                    currentIndex = cards.length - itemsPerView;
-                }
-                updateSlider();
-            }
-            
-            if (nextBtn) {
-                nextBtn.addEventListener('click', () => {
-                    nextSlide();
-                    resetInterval();
-                });
-            }
-            
-            if (prevBtn) {
-                prevBtn.addEventListener('click', () => {
-                    prevSlide();
-                    resetInterval();
-                });
-            }
-            
             function startInterval() {
                 clearInterval(slideInterval);
                 slideInterval = setInterval(nextSlide, intervalTime);
-            }
-            
-            function resetInterval() {
-                clearInterval(slideInterval);
-                startInterval();
             }
             
             startInterval();
@@ -549,19 +511,15 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // Init Deals Slider (2 items desktop, 1 tablet)
-            initSlider('dealsTrack', 'prevDeal', 'nextDeal', 2, 1, 2500);
+            // Init Sliders
+            initSlider('dealsTrack', 2500);
+            initSlider('catTrack', 2500);
+            initSlider('msTrack', 4000);
             
-            // Init Category Slider (3 items desktop, 2 tablet)
-            initSlider('catTrack', null, null, 3, 2, 2500);
-            
-            // Init Most Selling Slider (4 items desktop, 2 tablet)
-            initSlider('msTrack', 'prevMs', 'nextMs', 4, 2, 4000);
-            
-            // Init Featured Categories Tab Sliders (5 items desktop, 2 tablet)
-            initSlider('fcTrack1', 'prevFc1', 'nextFc1', 5, 2, 4000);
-            initSlider('fcTrack2', 'prevFc2', 'nextFc2', 5, 2, 4000);
-            initSlider('fcTrack3', 'prevFc3', 'nextFc3', 5, 2, 4000);
+            // Init Featured Categories Tab Sliders
+            initSlider('fcTrack1', 4000);
+            initSlider('fcTrack2', 4000);
+            initSlider('fcTrack3', 4000);
         });
     </script>
 
@@ -577,11 +535,10 @@
                     Most Selling Products
                     <span style="position: absolute; bottom: -16px; left: 0; width: 100%; height: 2px; background: #C7AE8D;"></span>
                 </h2>
-                <a href="#" style="color: var(--text-gray); font-size: 0.9rem; text-decoration: none;">View All <i class="fa-solid fa-chevron-right" style="font-size: 0.8rem; margin-left: 5px;"></i></a>
+                <a href="#" class="btn-link" style="color: var(--dark-charcoal); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; display: flex; align-items: center; gap: 8px;">VIEW ALL <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             
             <div class="slider-container" style="position: relative;">
-                <button class="slider-arrow left-arrow" id="prevMs"><i class="fa-solid fa-chevron-left"></i></button>
                 <div class="slider-wrapper">
                     <div class="slider-track ms-track stagger-children" id="msTrack">
                         @foreach($products as $prodId => $prod)
@@ -590,7 +547,8 @@
                                 @if(isset($prod['old_price']))
                                     <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                 @endif
-                                <button class="ms-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                                <button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                                <button class="ms-quick-view" title="Quick View" data-id="{{ $prodId }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                                 <a href="{{ route('product.show', $prodId) }}">
                                     <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
                                     <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
@@ -611,7 +569,6 @@
                         @endforeach
                     </div>
                 </div>
-                <button class="slider-arrow right-arrow" id="nextMs"><i class="fa-solid fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -631,7 +588,6 @@
             
             <div id="BabyBoys" class="fc-content active">
                 <div class="slider-container" style="position: relative;">
-                    <button class="slider-arrow left-arrow" id="prevFc1"><i class="fa-solid fa-chevron-left"></i></button>
                     <div class="slider-wrapper">
                         <div class="slider-track fc-track" id="fcTrack1">
                             @foreach($products as $prodId => $prod)
@@ -641,6 +597,8 @@
                                         @if(isset($prod['old_price']))
                                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                         @endif
+                                        <button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                                        <button class="ms-quick-view fc-quick-view" title="Quick View" data-id="{{ $prodId }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                                         <a href="{{ route('product.show', $prodId) }}">
                                             <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
                                             <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
@@ -649,7 +607,6 @@
                                     <div class="ms-details">
                                         <div class="ms-header">
                                             <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>
-                                            <button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button>
                                         </div>
                                         <div class="ms-price">
                                             @if(isset($prod['old_price']))
@@ -663,13 +620,11 @@
                             @endforeach
                         </div>
                     </div>
-                    <button class="slider-arrow right-arrow" id="nextFc1"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
             <div id="BabyGirls" class="fc-content">
                 <div class="slider-container" style="position: relative;">
-                    <button class="slider-arrow left-arrow" id="prevFc2"><i class="fa-solid fa-chevron-left"></i></button>
                     <div class="slider-wrapper">
                         <div class="slider-track fc-track" id="fcTrack2">
                             @foreach($products as $prodId => $prod)
@@ -679,6 +634,8 @@
                                         @if(isset($prod['old_price']))
                                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                         @endif
+                                        <button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                                        <button class="ms-quick-view fc-quick-view" title="Quick View" data-id="{{ $prodId }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                                         <a href="{{ route('product.show', $prodId) }}">
                                             <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
                                             <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
@@ -687,7 +644,6 @@
                                     <div class="ms-details">
                                         <div class="ms-header">
                                             <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>
-                                            <button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button>
                                         </div>
                                         <div class="ms-price">
                                             @if(isset($prod['old_price']))
@@ -701,49 +657,47 @@
                             @endforeach
                         </div>
                     </div>
-                    <button class="slider-arrow right-arrow" id="nextFc2"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
 
             <div id="Accessories" class="fc-content">
                 <div class="slider-container" style="position: relative;">
-                    <button class="slider-arrow left-arrow" id="prevFc3"><i class="fa-solid fa-chevron-left"></i></button>
                     <div class="slider-wrapper">
                         <div class="slider-track fc-track" id="fcTrack3">
                             <!-- Product 1 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-30%</span><img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Bunny Booties</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 500</span><span class="new-price">Rs. 350</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-30%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Bunny Booties</h4></div><div class="ms-price"><span class="old-price">Rs. 500</span><span class="new-price">Rs. 350</span></div></div>
                             </div>
                             <!-- Product 2 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-10%</span><img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Knitted Cap</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 600</span><span class="new-price">Rs. 500</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-10%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Knitted Cap</h4></div><div class="ms-price"><span class="old-price">Rs. 600</span><span class="new-price">Rs. 500</span></div></div>
                             </div>
                             <!-- Product 3 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-15%</span><img src="https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Mittens Set</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 400</span><span class="new-price">Rs. 340</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-15%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Mittens Set</h4></div><div class="ms-price"><span class="old-price">Rs. 400</span><span class="new-price">Rs. 340</span></div></div>
                             </div>
                             <!-- Product 4 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-25%</span><img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Soft Blanket</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 1,500</span><span class="new-price">Rs. 1,125</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-25%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Soft Blanket</h4></div><div class="ms-price"><span class="old-price">Rs. 1,500</span><span class="new-price">Rs. 1,125</span></div></div>
                             </div>
                             <!-- Product 5 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-5%</span><img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Baby Socks</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 300</span><span class="new-price">Rs. 280</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-5%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1522771930-78848d9293e8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Baby Socks</h4></div><div class="ms-price"><span class="old-price">Rs. 300</span><span class="new-price">Rs. 280</span></div></div>
                             </div>
                             <!-- Product 6 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-30%</span><img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Teddy Bear</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 500</span><span class="new-price">Rs. 350</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-30%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Teddy Bear</h4></div><div class="ms-price"><span class="old-price">Rs. 500</span><span class="new-price">Rs. 350</span></div></div>
                             </div>
                             <!-- Product 7 -->
                             <div class="ms-card">
-                                <div class="ms-img-wrapper"><span class="ms-discount">-10%</span><img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
-                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Winter Cap</h4><button class="ms-wishlist"><i class="fa-regular fa-heart"></i></button></div><div class="ms-price"><span class="old-price">Rs. 600</span><span class="new-price">Rs. 500</span></div></div>
+                                <div class="ms-img-wrapper"><span class="ms-discount">-10%</span><button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button><img src="https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80" alt="Accessories"></div>
+                                <div class="ms-details"><div class="ms-header"><h4 class="ms-title">Winter Cap</h4></div><div class="ms-price"><span class="old-price">Rs. 600</span><span class="new-price">Rs. 500</span></div></div>
                             </div>
                             <!-- Product 8 -->
                             <div class="ms-card">
@@ -752,7 +706,6 @@
                             </div>
                         </div>
                     </div>
-                    <button class="slider-arrow right-arrow" id="nextFc3"><i class="fa-solid fa-chevron-right"></i></button>
                 </div>
             </div>
         </div>

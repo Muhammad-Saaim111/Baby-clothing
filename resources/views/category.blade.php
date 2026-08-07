@@ -86,17 +86,22 @@
                     </div>
                 </div>
                 <div class="toolbar-right">
+                    <span class="sort-by-label">SORT BY</span>
                     <select class="catalog-sort-select" id="sortSelect">
-                        <option value="default">Default Sorting</option>
-                        <option value="price_asc">Price: Low to High</option>
-                        <option value="price_desc">Price: High to Low</option>
-                        <option value="newest">Newest First</option>
+                        <option value="featured" selected>Featured</option>
+                        <option value="relevant">Most relevant</option>
+                        <option value="bestselling">Best selling</option>
+                        <option value="price_asc">Price, low to high</option>
+                        <option value="price_desc">Price, high to low</option>
                     </select>
                     <span class="results-count" id="resultsCount">Showing 1-{{ count($products) }} of {{ count($products) }}</span>
                     <div class="grid-layout-btns">
                         <button class="layout-btn active" onclick="setGridLayout(3)"><i class="fas fa-th-large"></i></button>
                         <button class="layout-btn" onclick="setGridLayout(4)"><i class="fas fa-th"></i></button>
                     </div>
+                    <button class="clear-filter-btn" id="clearFilterBtn" onclick="clearAllFilters()">
+                        <i class="fas fa-times-circle"></i> Clear Filters
+                    </button>
                 </div>
             </div>
 
@@ -109,6 +114,7 @@
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
                         <button class="grid-wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                        <button class="ms-quick-view" title="Quick View" data-id="{{ $prod['id'] }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                         <a href="{{ route('product.show', $prod['id']) }}">
                             <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if(in_array($prod['id'], [9, 16, 17])) style="object-fit: contain !important; transform: scale(1.15);" @endif>
                         </a>
@@ -221,10 +227,34 @@
                 const priceB = parseInt(b.getAttribute('data-price'));
                 const idA = parseInt(a.getAttribute('data-id'));
                 const idB = parseInt(b.getAttribute('data-id'));
+                const nameA = a.getAttribute('data-name') || '';
+                const nameB = b.getAttribute('data-name') || '';
                 
                 if (sortOption === 'price_asc') return priceA - priceB;
                 if (sortOption === 'price_desc') return priceB - priceA;
-                if (sortOption === 'newest') return idB - idA;
+                
+                if (sortOption === 'alpha_asc') return nameA.localeCompare(nameB);
+                if (sortOption === 'alpha_desc') return nameB.localeCompare(nameA);
+                
+                if (sortOption === 'date_asc') return idA - idB;
+                if (sortOption === 'date_desc') return idB - idA;
+                
+                if (sortOption === 'featured') {
+                    // Custom sorting: odd IDs first, then by ID
+                    return (idA % 2) - (idB % 2) || idA - idB;
+                }
+                
+                if (sortOption === 'bestselling') {
+                    // Bestselling: higher IDs or discount products first
+                    const discountA = a.querySelector('.ms-discount') ? 1 : 0;
+                    const discountB = b.querySelector('.ms-discount') ? 1 : 0;
+                    return discountB - discountA || idB - idA;
+                }
+                
+                if (sortOption === 'relevant') {
+                    // Most relevant: default sort (ID ascending)
+                    return idA - idB;
+                }
                 
                 // Default sorting (by ID ascending)
                 return idA - idB;
@@ -241,6 +271,27 @@
             }
         }
         
+        // Expose function globally for the button onclick handler
+        window.clearAllFilters = function() {
+            if (searchInput) searchInput.value = '';
+            if (priceRange) {
+                priceRange.value = 5000;
+                if(priceValueText) priceValueText.innerText = '5,000';
+            }
+            
+            sizeBtns.forEach(b => b.classList.remove('active'));
+            const allSizeBtn = document.querySelector('.size-btn[data-size="all"]');
+            if (allSizeBtn) allSizeBtn.classList.add('active');
+            activeSize = 'all';
+            
+            tagBtns.forEach(b => b.classList.remove('active'));
+            const allTagBtn = document.querySelector('.tag-btn[data-tag="all"]');
+            if (allTagBtn) allTagBtn.classList.add('active');
+            activeTag = 'all';
+            
+            filterAndSortProducts();
+        };
+
         // Event Listeners
         if (searchInput) {
             searchInput.addEventListener('input', filterAndSortProducts);
