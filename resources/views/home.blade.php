@@ -237,7 +237,7 @@
         
         /* Most Selling Products Slider */
         .ms-track .ms-card {
-            flex: 0 0 calc(25% - 22.5px) !important;
+            flex: 0 0 calc(33.333% - 20px) !important;
             display: flex !important;
             flex-direction: column;
             background: #ffffff;
@@ -370,7 +370,7 @@
             font-size: 1rem;
         }
         @media (max-width: 992px) {
-            .ms-track .ms-card { flex: 0 0 calc(33.333% - 20px) !important; }
+            .ms-track .ms-card { flex: 0 0 calc(50% - 15px) !important; }
         }
         @media (max-width: 768px) {
             .ms-track .ms-card { flex: 0 0 calc(50% - 15px) !important; }
@@ -427,7 +427,7 @@
             border-bottom: 2px solid #C7AE8D;
         }
         .fc-track .ms-card {
-            flex: 0 0 calc(20% - 24px) !important;
+            flex: 0 0 calc(33.333% - 20px) !important;
         }
         .fc-content {
             display: none;
@@ -435,8 +435,8 @@
         .fc-content.active {
             display: block;
         }
-        @media (max-width: 1200px) { .fc-track .ms-card { flex: 0 0 calc(25% - 22.5px) !important; } }
-        @media (max-width: 992px) { .fc-track .ms-card { flex: 0 0 calc(33.333% - 20px) !important; } }
+        @media (max-width: 1200px) { .fc-track .ms-card { flex: 0 0 calc(33.333% - 20px) !important; } }
+        @media (max-width: 992px) { .fc-track .ms-card { flex: 0 0 calc(50% - 15px) !important; } }
         @media (max-width: 768px) { .fc-track .ms-card { flex: 0 0 calc(50% - 15px) !important; } }
         @media (max-width: 576px) { .fc-track .ms-card { flex: 0 0 100% !important; } }
     </style>
