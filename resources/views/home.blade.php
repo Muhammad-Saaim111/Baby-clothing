@@ -468,9 +468,11 @@
             let slideInterval;
             
             function getItemsPerView() {
-                if (window.innerWidth <= 576) return 1;
-                if (window.innerWidth <= 992) return 2;
-                return 4;
+                if (!cards.length) return 1;
+                const containerWidth = track.parentElement.offsetWidth;
+                const cardWidth = cards[0].offsetWidth;
+                // Add gap to both container and card for accurate calculation
+                return Math.round((containerWidth + 30) / (cardWidth + 30)) || 1;
             }
             
             function updateSlider() {
