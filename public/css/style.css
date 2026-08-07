@@ -4472,7 +4472,7 @@ img {
     width: 44px;
     height: 44px;
     background: transparent;
-    border: 1px solid var(--border-soft);
+    border: none;
     border-radius: 4px;
     display: flex;
     align-items: center;
