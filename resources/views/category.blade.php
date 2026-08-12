@@ -113,13 +113,35 @@
                         @if(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
-                        <button class="grid-wishlist-btn" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                        <button class="grid-wishlist-btn" data-id="{{ $prod['id'] }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $prod['id'] }}', '{{ addslashes($prod['name']) }}', {{ $prod['price'] }}, '{{ asset($prod['image_path']) }}')"><i class="fa-regular fa-heart"></i></button>
                         <button class="ms-quick-view" title="Quick View" data-id="{{ $prod['id'] }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                         <a href="{{ route('product.show', $prod['id']) }}">
                             <img class="real-product-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}" @if(in_array($prod['id'], [9, 16, 17])) style="object-fit: contain !important; transform: scale(1.15);" @endif>
                         </a>
                         <div class="ms-quick-btn">
                             <a href="{{ route('product.show', $prod['id']) }}" class="quick-view-link">Quick View <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+
+                        <!-- Quick Add Size/Qty Overlay -->
+                        <div class="quick-add-overlay">
+                            <div class="qa-sizes-title">Select Size</div>
+                            <div class="qa-sizes-list">
+                                @foreach($prod['sizes'] ?? [] as $size)
+                                    <button type="button" class="qa-size-btn" onclick="selectQuickAddSize(this, '{{ $size }}')">{{ $size }}</button>
+                                @endforeach
+                            </div>
+                            <div class="qa-qty-row">
+                                <span>Quantity:</span>
+                                <div class="qa-qty-selector">
+                                    <button type="button" onclick="adjustQuickAddQty(this, -1)">-</button>
+                                    <input type="number" class="qa-qty-input" value="1" min="1" max="10" readonly>
+                                    <button type="button" onclick="adjustQuickAddQty(this, 1)">+</button>
+                                </div>
+                            </div>
+                            <div class="qa-actions">
+                                <button type="button" class="qa-cancel-btn" onclick="closeQuickAddOverlay(this, event)">CANCEL</button>
+                                <button type="button" class="qa-add-btn" onclick="submitQuickAddToCart(this, event)">ADD</button>
+                            </div>
                         </div>
                     </div>
                     <div class="ms-details">

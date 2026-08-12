@@ -83,24 +83,13 @@
                             </div>
                         </a>
                         
-                        <!-- Category 2 -->
-                        <a href="#" class="showcase-card">
-                            <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_toddler.jpg') }}');"></div>
-                            <div class="showcase-overlay"></div>
-                            <div class="showcase-content">
-                                <span>Play Ready</span>
-                                <h3>Toddler (2-5 Years)</h3>
-                                <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
-                            </div>
-                        </a>
-
                         <!-- Category 3 -->
                         <a href="#" class="showcase-card">
                             <div class="showcase-bg" style="background-image: url('{{ asset('assets/images/products/category_kids.jpg') }}');"></div>
                             <div class="showcase-overlay"></div>
                             <div class="showcase-content">
                                 <span>Active Kids</span>
-                                <h3>Kids (5-8 Years)</h3>
+                                <h3>Kids (2-8 Years)</h3>
                                 <span class="btn-text">Shop Now <i class="fa-solid fa-arrow-right"></i></span>
                             </div>
                         </a>
@@ -544,17 +533,39 @@
                 <div class="slider-wrapper">
                     <div class="slider-track ms-track stagger-children" id="msTrack">
                         @foreach($products as $prodId => $prod)
-                        <div class="ms-card">
+                        <div class="ms-card" data-id="{{ $prodId }}" data-sizes="{{ implode(',', $prod->sizes ?? []) }}">
                             <div class="ms-img-wrapper">
                                 @if(isset($prod['old_price']))
                                     <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                                 @endif
-                                <button class="ms-wishlist absolute-wishlist" title="Add to Wishlist"><i class="fa-regular fa-heart"></i></button>
+                                <button class="ms-wishlist absolute-wishlist" data-id="{{ $prodId }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $prodId }}', '{{ addslashes($prod['name']) }}', {{ $prod['price'] }}, '{{ asset($prod['image_path']) }}')"><i class="fa-regular fa-heart"></i></button>
                                 <button class="ms-quick-view" title="Quick View" data-id="{{ $prodId }}" data-title="{{ $prod['name'] }}" data-price="{{ $prod['price'] }}" data-old-price="{{ $prod['old_price'] ?? '' }}" data-image="{{ asset($prod['image_path']) }}" data-category="{{ $prod['category'] ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                                 <a href="{{ route('product.show', $prodId) }}">
                                     <img class="real-product-img primary-img" src="{{ asset($prod['image_path']) }}" alt="{{ $prod['name'] }}">
                                     <img class="real-product-img lifestyle-img" src="{{ asset(str_replace('_front.jpg', '_lifestyle.jpg', $prod['image_path'])) }}" alt="{{ $prod['name'] }}">
                                 </a>
+
+                                <!-- Quick Add Size/Qty Overlay -->
+                                <div class="quick-add-overlay">
+                                    <div class="qa-sizes-title">Select Size</div>
+                                    <div class="qa-sizes-list">
+                                        @foreach($prod->sizes ?? [] as $size)
+                                            <button type="button" class="qa-size-btn" onclick="selectQuickAddSize(this, '{{ $size }}')">{{ $size }}</button>
+                                        @endforeach
+                                    </div>
+                                    <div class="qa-qty-row">
+                                        <span>Quantity:</span>
+                                        <div class="qa-qty-selector">
+                                            <button type="button" onclick="adjustQuickAddQty(this, -1)">-</button>
+                                            <input type="number" class="qa-qty-input" value="1" min="1" max="10" readonly>
+                                            <button type="button" onclick="adjustQuickAddQty(this, 1)">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="qa-actions">
+                                        <button type="button" class="qa-cancel-btn" onclick="closeQuickAddOverlay(this, event)">CANCEL</button>
+                                        <button type="button" class="qa-add-btn" onclick="submitQuickAddToCart(this, event)">ADD</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="ms-details">
                                 <h4 class="ms-title"><a href="{{ route('product.show', $prodId) }}">{{ $prod['name'] }}</a></h4>

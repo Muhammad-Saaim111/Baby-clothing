@@ -54,6 +54,28 @@
 
                 <!-- Product Title & Desc -->
                 <h1 class="product-title">{{ $product['name'] }}</h1>
+                
+                <div class="product-stars-display" onclick="document.getElementById('reviewsSection').scrollIntoView({behavior: 'smooth'})" style="display: flex; align-items: center; gap: 6px; cursor: pointer; margin-bottom: 15px;">
+                    <div class="stars" style="margin-bottom: 0 !important; display: inline-flex; gap: 2px;">
+                        @php
+                            $approvedReviews = $product->reviews()->where('status', 'approved')->get();
+                            $avgRating = $approvedReviews->avg('rating') ?: 0;
+                            $floorRating = floor($avgRating);
+                            $reviewCount = $approvedReviews->count();
+                        @endphp
+                        @for($i = 1; $i <= 5; $i++)
+                            @if($i <= $floorRating)
+                                <i class="fa-solid fa-star"></i>
+                            @elseif($i - 0.5 <= $avgRating)
+                                <i class="fa-solid fa-star-half-stroke"></i>
+                            @else
+                                <i class="fa-regular fa-star"></i>
+                            @endif
+                        @endfor
+                    </div>
+                    <span>{{ number_format($avgRating, 1) }} ({{ $reviewCount }} {{ Str::plural('Review', $reviewCount) }})</span>
+                </div>
+
                 <p class="product-description">{{ $product['description'] }}</p>
 
                 <!-- Price Box (Prime Beds style) -->
@@ -86,6 +108,11 @@
                                 </label>
                                 @endforeach
                             </div>
+                        </div>
+                        <!-- Stock indicator placed outside the collapsing panel but inside the size row container -->
+                        <div id="stockIndicator" class="pb-stock-indicator" style="display: none; margin: 0 18px 14px;">
+                            <span class="pulse-dot"></span>
+                            <span id="stockIndicatorText"></span>
                         </div>
                     </div>
 
@@ -128,6 +155,9 @@
                     <button class="pb-add-to-cart-btn">
                         <i class="fas fa-shopping-cart"></i> ADD TO CART
                     </button>
+                    <button class="grid-wishlist-btn absolute-wishlist" style="position: static; margin-left: 10px; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; border: 1px solid #dcdad5; border-radius: 8px; background: #fff; cursor: pointer; color: var(--dark-charcoal); font-size: 1.3rem; transition: all 0.2s;" data-id="{{ $product->id }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $product->id }}', '{{ addslashes($product->name) }}', {{ $product->price }}, '{{ asset($product->image_path) }}')">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
                 </div>
 
                 <!-- Category Tag -->
@@ -161,8 +191,12 @@
                         @if(isset($relProd['old_price']))
                             <span class="rel-discount">-{{ round((($relProd['old_price'] - $relProd['price']) / $relProd['old_price']) * 100) }}%</span>
                         @endif
-                        <a href="{{ route('product.show', $relId) }}">
-                            <img src="{{ asset($relProd['image_path']) }}" alt="{{ $relProd['name'] }}" class="rel-product-img">
+                        <a href="{{ route('product.show', $relId) }}" class="related-image-link">
+                            <img src="{{ asset($relProd['image_path']) }}" alt="{{ $relProd['name'] }}" class="rel-product-img rel-img-front">
+                            @php
+                                $lifestyle_image = str_replace('_front.jpg', '_lifestyle.jpg', $relProd['image_path']);
+                            @endphp
+                            <img src="{{ asset($lifestyle_image) }}" alt="{{ $relProd['name'] }}" class="rel-product-img rel-img-lifestyle" onerror="this.style.display='none'">
                         </a>
                     </div>
                     <div class="rel-details">
@@ -179,13 +213,18 @@
             </div>
         </section>
         @endif
+
+        <!-- Customer Reviews Section -->
+        <section class="reviews-section" id="reviewsSection">
+            <livewire:product-reviews :product="$product" />
+        </section>
     </div>
 </div>
 
 {{--
 <!-- Size Guide Modal -->
-<div id="sizeGuideModal" class="size-modal">
-    <div class="size-modal-content">
+<div id="sizeGuideModal" class="size-modal" onclick="closeSizeGuide(event)">
+    <div class="size-modal-content" onclick="event.stopPropagation()">
         <span class="close-modal" onclick="closeSizeGuide()">&times;</span>
         <h2>Size Chart Guide</h2>
         <p>All measurements are in inches. Use this chart to find the perfect fit for your little one.</p>
@@ -222,6 +261,18 @@
                     <td>13.5</td>
                     <td>17.0</td>
                     <td>14.5</td>
+                </tr>
+                <tr>
+                    <td>5-6 Years</td>
+                    <td>14.5</td>
+                    <td>19.0</td>
+                    <td>16.0</td>
+                </tr>
+                <tr>
+                    <td>7-8 Years</td>
+                    <td>15.5</td>
+                    <td>21.0</td>
+                    <td>17.5</td>
                 </tr>
             </tbody>
         </table>
@@ -271,8 +322,18 @@
     function selectSize(size) {
         const label = document.getElementById('sizeSelected');
         const icon  = document.getElementById('sizeCheck');
-        if (label) label.textContent = size;
+        if (label) label.textContent = size.replace('Y', ' Yr');
         if (icon)  icon.classList.add('active');
+        
+        // Show stock indicator with mock dynamic count
+        const stockInd = document.getElementById('stockIndicator');
+        const stockText = document.getElementById('stockIndicatorText');
+        if (stockInd && stockText) {
+            const stockCount = Math.floor(Math.random() * 3) + 2; // 2, 3, or 4
+            stockText.textContent = `Hurry! Only ${stockCount} items left in stock for size ${size.replace('Y', ' Yr')}!`;
+            stockInd.style.display = 'flex';
+        }
+
         // close size panel after selection
         const panel = document.getElementById('sizePanel');
         if (panel) {
@@ -280,6 +341,23 @@
             panel.style.opacity = '0';
             panel.style.paddingTop = '0';
         }
+    }
+
+    // Review Star Rating Selector
+    function selectFormRating(rating) {
+        document.getElementById('ratingInput').value = rating;
+        const stars = document.querySelectorAll('#starRatingSelector i');
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('active');
+                star.classList.remove('fa-regular');
+                star.classList.add('fa-solid');
+            } else {
+                star.classList.remove('active');
+                star.classList.remove('fa-solid');
+                star.classList.add('fa-regular');
+            }
+        });
     }
 
     // Open size panel by default on load

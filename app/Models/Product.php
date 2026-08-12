@@ -13,4 +13,9 @@ class Product extends Model
         'sizes' => 'array',
         'features' => 'array',
     ];
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class)->latest();
+    }
 }
