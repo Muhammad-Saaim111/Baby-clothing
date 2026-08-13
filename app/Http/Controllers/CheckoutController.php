@@ -52,6 +52,17 @@ class CheckoutController extends Controller
             $orderNumber = 'AIM-' . rand(100000, 999999);
         }
 
+        $coupon = null;
+        if ($request->coupon_code) {
+            $coupon = \App\Models\Coupon::where('code', $request->coupon_code)->first();
+            if (!$coupon || !$coupon->isValid()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'The coupon code you entered is invalid, expired, or has reached its usage limit.',
+                ], 422);
+            }
+        }
+
         // Create Order
         $order = Order::create([
             'order_number' => $orderNumber,
@@ -73,6 +84,10 @@ class CheckoutController extends Controller
             'status' => 'pending',
             'payment_method' => $request->payment_method,
         ]);
+
+        if ($coupon) {
+            $coupon->increment('used_count');
+        }
 
         // Create Order Items
         foreach ($request->items as $item) {

@@ -687,6 +687,10 @@
                     <span>Subtotal:</span>
                     <span id="cartDrawerSubtotal">Rs. 0.00</span>
                 </div>
+                <div class="total-row" id="cartDrawerDiscountRow" style="display: none;">
+                    <span>Discount:</span>
+                    <span id="cartDrawerDiscountAmount" style="color: var(--terracotta); font-weight: bold;">-Rs. 0.00</span>
+                </div>
                 <div class="total-row main-total">
                     <span>Total:</span>
                     <span id="cartDrawerTotal">Rs. 0.00</span>
@@ -1085,10 +1089,47 @@
             };
             
             window.saveCoupon = function() {
-                const text = document.getElementById('sicCouponInput').value;
-                localStorage.setItem('aim_order_coupon', text);
-                toggleAddCoupon();
-                showToast("Applied!", "Coupon code has been applied.");
+                const text = document.getElementById('sicCouponInput').value.trim().toUpperCase();
+                const btn = event ? event.target : null;
+                
+                if (!text) {
+                    showToast("Error", "Please enter a coupon code.");
+                    return;
+                }
+
+                if (btn) btn.textContent = 'SAVING...';
+
+                const cart = getCart();
+                const subtotal = cart.reduce((sum, item) => sum + ((Number(item.price) || 0) * (Number(item.quantity) || 1)), 0);
+
+                fetch('/coupon/apply', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ code: text, subtotal: subtotal })
+                })
+                .then(async res => {
+                    const data = await res.json();
+                    if (data.success) {
+                        localStorage.setItem('aim_order_coupon', data.code);
+                        localStorage.setItem('aim_order_coupon_type', data.type);
+                        localStorage.setItem('aim_order_coupon_value', data.value);
+                        toggleAddCoupon();
+                        showToast("Applied!", data.message);
+                        renderCartDrawer();
+                    } else {
+                        localStorage.removeItem('aim_order_coupon');
+                        localStorage.removeItem('aim_order_coupon_type');
+                        localStorage.removeItem('aim_order_coupon_value');
+                        showToast("Error", data.message);
+                        renderCartDrawer();
+                    }
+                })
+                .catch(() => showToast("Error", "Could not connect to server."))
+                .finally(() => { if (btn) btn.textContent = 'SAVE'; });
             };
 
             function getCart() {
@@ -1426,7 +1467,35 @@
                 // Calculate subtotal
                 const subtotal = cart.reduce((sum, item) => sum + ((Number(item.price) || 0) * (Number(item.quantity) || 1)), 0);
                 cartSubtotalEl.textContent = `Rs. ${subtotal.toLocaleString()}.00`;
-                cartTotalEl.textContent = `Rs. ${subtotal.toLocaleString()}.00`;
+
+                // Calculate discount if coupon saved
+                let discount = 0;
+                const savedCoupon = localStorage.getItem('aim_order_coupon');
+                const savedType = localStorage.getItem('aim_order_coupon_type');
+                const savedValue = Number(localStorage.getItem('aim_order_coupon_value'));
+                
+                const discountRow = document.getElementById('cartDrawerDiscountRow');
+                const discountAmountEl = document.getElementById('cartDrawerDiscountAmount');
+                
+                if (savedCoupon && savedType && savedValue && subtotal > 0) {
+                    if (savedType === 'percentage') {
+                        discount = Math.round(subtotal * (savedValue / 100));
+                    } else if (savedType === 'fixed') {
+                        discount = Math.min(savedValue, subtotal);
+                    }
+                    
+                    if (discountRow) discountRow.style.display = 'flex';
+                    if (discountAmountEl) discountAmountEl.textContent = `-Rs. ${discount.toLocaleString()}.00`;
+                    
+                    // Display applied coupon code in input field
+                    const input = document.getElementById('sicCouponInput');
+                    if (input && !input.value) input.value = savedCoupon;
+                } else {
+                    if (discountRow) discountRow.style.display = 'none';
+                }
+                
+                const finalTotal = subtotal - discount;
+                cartTotalEl.textContent = `Rs. ${finalTotal.toLocaleString()}.00`;
 
                 // Shipping progress threshold (Rs. 5,000)
                 const freeShippingThreshold = 5000;
@@ -1730,7 +1799,11 @@
                 if (response.ok && data.success) {
                     showToast("Welcome Back! 👋", data.message || "Logged in successfully.");
                     setTimeout(() => {
-                        window.location.reload();
+                        if (data.redirect) {
+                            window.location.href = data.redirect;
+                        } else {
+                            window.location.reload();
+                        }
                     }, 1000);
                 } else {
                     errorEl.textContent = data.message || "Invalid credentials. Please try again.";

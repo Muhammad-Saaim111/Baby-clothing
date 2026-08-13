@@ -47,9 +47,12 @@ Route::get('/search', function (\Illuminate\Http\Request $request) {
     $q = trim($request->input('q', ''));
     $products = collect();
     if ($q) {
-        $products = Product::where('name', 'like', "%{$q}%")
-            ->orWhere('description', 'like', "%{$q}%")
-            ->orWhere('category', 'like', "%{$q}%")
+        $products = Product::where('is_active', true)
+            ->where(function($query) use ($q) {
+                $query->where('name', 'like', "%{$q}%")
+                      ->orWhere('description', 'like', "%{$q}%")
+                      ->orWhere('category', 'like', "%{$q}%");
+            })
             ->paginate(12);
     }
     return view('search', compact('products', 'q'));
@@ -60,15 +63,16 @@ Route::get('/wishlist', function () {
 })->name('wishlist');
 
 Route::get('/', function () {
-    $products = Product::all();
+    $products = Product::where('is_active', true)->get();
     return view('home', compact('products'));
 });
 
 Route::get('/product/{id}', function ($id) {
-    $product = Product::with('reviews')->findOrFail($id);
+    $product = Product::with('reviews')->where('is_active', true)->findOrFail($id);
     
     // Find related products (same category, excluding current one)
-    $related = Product::where('category', $product->category)
+    $related = Product::where('is_active', true)
+                      ->where('category', $product->category)
                       ->where('id', '!=', $product->id)
                       ->take(4)
                       ->get();
@@ -97,12 +101,12 @@ Route::get('/category/{gender}', function ($gender) {
     }
     
     if ($gender === 'shirts') {
-        $products = Product::all();
+        $products = Product::where('is_active', true)->get();
     } elseif ($gender === 'new-born') {
         // Fetch products with smaller sizes like 1-2Y to populate newborn catalog
-        $products = Product::where('sizes', 'like', '%1-2Y%')->take(6)->get();
+        $products = Product::where('is_active', true)->where('sizes', 'like', '%1-2Y%')->take(6)->get();
     } else {
-        $products = Product::where('category', $category_name)->get();
+        $products = Product::where('is_active', true)->where('category', $category_name)->get();
     }
     
     return view('category', [
@@ -131,4 +135,13 @@ Route::get('/clear', function() {
     \Illuminate\Support\Facades\Artisan::call('view:clear');
     \Illuminate\Support\Facades\Artisan::call('cache:clear');
     return "Cache cleared successfully!";
+});
+
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('admin.dashboard');
+    Route::get('/products', \App\Livewire\Admin\Products::class)->name('admin.products');
+    Route::get('/coupons', \App\Livewire\Admin\Coupons::class)->name('admin.coupons');
+    Route::get('/customers', \App\Livewire\Admin\Customers::class)->name('admin.customers');
+    Route::get('/orders', \App\Livewire\Admin\Orders::class)->name('admin.orders');
+    Route::get('/reviews', \App\Livewire\Admin\Reviews::class)->name('admin.reviews');
 });

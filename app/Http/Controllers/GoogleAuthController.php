@@ -71,7 +71,7 @@ class GoogleAuthController extends Controller
                 Auth::login($newUser);
             }
         }
-
-        return redirect('/')->with('success', 'Logged in successfully! Welcome! 🎉');
+        $redirectUrl = Auth::user()->is_admin ? '/admin' : '/';
+        return redirect($redirectUrl)->with('success', 'Logged in successfully! Welcome! 🎉');
     }
 }

@@ -110,7 +110,9 @@
                 @foreach($products as $prod)
                 <div class="ms-card product-item" data-id="{{ $prod['id'] }}" data-price="{{ $prod['price'] }}" data-name="{{ strtolower($prod['name']) }}" data-sizes="{{ implode(',', $prod['sizes'] ?? []) }}">
                     <div class="ms-img-wrapper" @if(in_array($prod['id'], [9, 16, 17])) style="aspect-ratio: 1 / 1; background: transparent;" @endif>
-                        @if(isset($prod['old_price']))
+                        @if($prod['stock'] <= 0)
+                            <span class="ms-discount" style="background-color: var(--terracotta) !important; font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.5px; border-radius: 4px; padding: 4px 8px;">Out of Stock</span>
+                        @elseif(isset($prod['old_price']))
                             <span class="ms-discount">-{{ round((($prod['old_price'] - $prod['price']) / $prod['old_price']) * 100) }}%</span>
                         @endif
                         <button class="grid-wishlist-btn" data-id="{{ $prod['id'] }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $prod['id'] }}', '{{ addslashes($prod['name']) }}', {{ $prod['price'] }}, '{{ asset($prod['image_path']) }}')"><i class="fa-regular fa-heart"></i></button>

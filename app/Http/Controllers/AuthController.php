@@ -39,9 +39,13 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
             $request->session()->flash('success', 'Logged in successfully! Welcome! 🎉');
+            
+            $redirectUrl = $user->is_admin ? '/admin' : null;
+            
             return response()->json([
                 'success' => true,
-                'message' => 'Logged in successfully!'
+                'message' => 'Logged in successfully!',
+                'redirect' => $redirectUrl
             ]);
         }
 

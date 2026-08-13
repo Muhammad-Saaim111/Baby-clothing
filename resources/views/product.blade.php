@@ -80,10 +80,15 @@
 
                 <!-- Price Box (Prime Beds style) -->
                 <div class="pb-price-box">
+                    @if($product['stock'] <= 0)
+                        <span class="pb-save-badge" style="background-color: var(--terracotta) !important; color: #fff !important; font-weight: 700; text-transform: uppercase;">OUT OF STOCK</span>
+                    @endif
                     @if(isset($product['old_price']))
                         <span class="pb-old-price">Rs. {{ number_format($product['old_price']) }}</span>
                         <span class="pb-new-price">Rs. {{ number_format($product['price']) }}</span>
-                        <span class="pb-save-badge">SAVE {{ round((($product['old_price'] - $product['price']) / $product['old_price']) * 100) }}%</span>
+                        @if($product['stock'] > 0)
+                            <span class="pb-save-badge">SAVE {{ round((($product['old_price'] - $product['price']) / $product['old_price']) * 100) }}%</span>
+                        @endif
                     @else
                         <span class="pb-new-price">Rs. {{ number_format($product['price']) }}</span>
                     @endif
@@ -152,9 +157,15 @@
                         <input type="number" id="productQty" value="1" min="1" max="10" readonly>
                         <button type="button" onclick="adjustQty(1)"><i class="fas fa-plus"></i></button>
                     </div>
-                    <button class="pb-add-to-cart-btn">
-                        <i class="fas fa-shopping-cart"></i> ADD TO CART
-                    </button>
+                    @if($product->stock > 0)
+                        <button class="pb-add-to-cart-btn">
+                            <i class="fas fa-shopping-cart"></i> ADD TO CART
+                        </button>
+                    @else
+                        <button class="pb-add-to-cart-btn" style="background: #999; cursor: not-allowed;" disabled>
+                            <i class="fas fa-ban"></i> OUT OF STOCK
+                        </button>
+                    @endif
                     <button class="grid-wishlist-btn absolute-wishlist" style="position: static; margin-left: 10px; width: 54px; height: 54px; display: flex; align-items: center; justify-content: center; border: 1px solid #dcdad5; border-radius: 8px; background: #fff; cursor: pointer; color: var(--dark-charcoal); font-size: 1.3rem; transition: all 0.2s;" data-id="{{ $product->id }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $product->id }}', '{{ addslashes($product->name) }}', {{ $product->price }}, '{{ asset($product->image_path) }}')">
                         <i class="fa-regular fa-heart"></i>
                     </button>
