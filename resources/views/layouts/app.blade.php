@@ -750,6 +750,9 @@
             const originalGetItem = Storage.prototype.getItem;
             const originalSetItem = Storage.prototype.setItem;
             const originalRemoveItem = Storage.prototype.removeItem;
+            
+            // Expose for aggressive clearing
+            window.originalStorageRemove = originalRemoveItem;
 
             // Helper to map keys
             function mapKey(key) {
@@ -1043,7 +1046,7 @@
                 initPageToasts();
             }
 
-            document.addEventListener('DOMContentLoaded', function() {
+            function initCartCheck() {
                 const savedInst = localStorage.getItem('aim_order_instructions');
                 if (savedInst) {
                     const textarea = document.getElementById('sicTextarea');
@@ -1055,7 +1058,62 @@
                     const input = document.getElementById('sicCouponInput');
                     if (input) input.value = savedCoupon;
                 }
-            });
+
+                // --- FUNNEL CLEAR CHECK ---
+                // Only check if we actually have items in the cart
+                const currentCart = getCart();
+                if (currentCart.length === 0) {
+                    return; // Cart is already empty, no need to check
+                }
+
+                // If backend cleared the cart, empty it on frontend too
+                const email = localStorage.getItem('aim_checkout_email');
+                const cartId = localStorage.getItem('aim_cart_id');
+                const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+                if (tokenMeta) {
+                    fetch('/api/cart/check', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': tokenMeta.getAttribute('content'),
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ email: email, cart_id: cartId })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.cleared) {
+                            // Aggressively clear EVERYTHING related to cart
+                            try {
+                                const keysToNuke = [];
+                                for (let i = 0; i < localStorage.length; i++) {
+                                    const k = localStorage.key(i);
+                                    if (k && (k.startsWith('aim_cart') || k.startsWith('aim_checkout'))) {
+                                        keysToNuke.push(k);
+                                    }
+                                }
+                                keysToNuke.forEach(k => {
+                                    if (typeof window.originalStorageRemove === 'function') {
+                                        window.originalStorageRemove.call(localStorage, k);
+                                    } else {
+                                        localStorage.removeItem(k);
+                                    }
+                                });
+                            } catch(err) {}
+                            
+                            if (typeof updateCartCount === 'function') updateCartCount();
+                            if (typeof renderCartDrawer === 'function') renderCartDrawer();
+                        }
+                    })
+                    .catch(e => {}); // Silent fail
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initCartCheck);
+            } else {
+                initCartCheck();
+            }
 
             window.toggleSpecialInstructions = function() {
                 const card = document.getElementById('specialInstructionsCard');
@@ -1146,7 +1204,30 @@
                 if (typeof renderCartDrawer === 'function') {
                     renderCartDrawer();
                 }
+                syncCartToServer(cart);
             }
+
+            function syncCartToServer(cart) {
+                const subtotal = cart.reduce((sum, item) => sum + ((Number(item.price) || 0) * (Number(item.quantity) || 1)), 0);
+                
+                // Try to get email if user is typing on checkout page
+                const emailInput = document.getElementById('email') || document.querySelector('input[name="email"]');
+                const email = emailInput && emailInput.value && emailInput.value.includes('@') ? emailInput.value : null;
+
+                const tokenMeta = document.querySelector('meta[name="csrf-token"]');
+                if (!tokenMeta) return;
+
+                fetch('/api/cart/sync', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': tokenMeta.getAttribute('content'),
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ cart: cart, total: subtotal, email: email })
+                }).catch(e => {}); // Silent fail
+            }
+
 
             function updateCartCount() {
                 const cart = getCart();
@@ -1711,6 +1792,22 @@
                     
                     const sizeEl = document.getElementById('sizeSelected');
                     const size = sizeEl ? sizeEl.textContent.trim() : 'Standard';
+                    
+                    if (size === 'Select a size') {
+                        if (typeof showToast === 'function') {
+                            showToast('Please select a size first!', 'error');
+                        } else {
+                            alert('Please select a size first!');
+                        }
+                        
+                        // Shake or highlight the size selector
+                        const sizeHeader = document.querySelector('.pb-option-header');
+                        if (sizeHeader) {
+                            sizeHeader.style.borderBottom = '2px solid var(--terracotta)';
+                            setTimeout(() => sizeHeader.style.borderBottom = '', 2000);
+                        }
+                        return;
+                    }
                     
                     // Parse old price if it exists
                     const oldPriceEl = document.querySelector('.pb-old-price') || document.querySelector('.pb-price .old-price') || document.querySelector('.old-price');

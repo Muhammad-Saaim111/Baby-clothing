@@ -42,6 +42,8 @@ Route::get('/email/verify/{id}/{hash}', function ($id, $hash, \Illuminate\Http\R
 })->middleware(['signed'])->name('verification.verify');
 Route::post('/checkout/place', [\App\Http\Controllers\CheckoutController::class, 'placeOrder'])->name('checkout.place');
 Route::post('/coupon/apply', [CouponController::class, 'apply'])->name('coupon.apply');
+Route::post('/api/cart/sync', [\App\Http\Controllers\CartSyncController::class, 'sync'])->name('cart.sync');
+Route::post('/api/cart/check', [\App\Http\Controllers\CartSyncController::class, 'checkStatus'])->name('cart.check');
 
 Route::get('/search', function (\Illuminate\Http\Request $request) {
     $q = trim($request->input('q', ''));
@@ -143,5 +145,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/coupons', \App\Livewire\Admin\Coupons::class)->name('admin.coupons');
     Route::get('/customers', \App\Livewire\Admin\Customers::class)->name('admin.customers');
     Route::get('/orders', \App\Livewire\Admin\Orders::class)->name('admin.orders');
+    Route::get('/marketing', \App\Livewire\Admin\Marketing::class)->name('admin.marketing');
     Route::get('/reviews', \App\Livewire\Admin\Reviews::class)->name('admin.reviews');
 });

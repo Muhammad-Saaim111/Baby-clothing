@@ -101,6 +101,13 @@ class CheckoutController extends Controller
             ]);
         }
 
+        // Mark abandoned cart as recovered
+        if ($request->email) {
+            \App\Models\AbandonedCart::where('email', $request->email)
+                ->where('funnel_step', '!=', 5)
+                ->update(['funnel_step' => 5, 'cart_data' => null]);
+        }
+
         if ($request->payment_method === 'Easypaisa') {
             // For Easypaisa, we return a redirect URL to our mockup gateway instead of sending email now
             return response()->json([
@@ -144,8 +151,8 @@ class CheckoutController extends Controller
     {
         $order = Order::where('order_number', $request->order_number)->firstOrFail();
         
-        // Update status to Paid/Completed
-        $order->status = 'completed'; // or 'paid'
+        // Update status to Processing after successful payment
+        $order->status = 'processing';
         // Let's store reference id
         $order->payment_method = 'Easypaisa';
         $order->save();

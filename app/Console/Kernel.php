@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Run cart funnel every 15 minutes
+        $schedule->command('cart:funnel')->everyFifteenMinutes();
     }
 
     /**

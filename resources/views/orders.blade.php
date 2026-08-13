@@ -240,7 +240,7 @@
         }
     }
     
-    .order-header-meta-block span {
+    .order-header-meta-block > span {
         display: block;
         font-size: 0.72rem;
         text-transform: uppercase;
@@ -762,19 +762,23 @@
                                     <!-- Order Items List -->
                                     <div class="order-items-list">
                                         @foreach($order->items as $item)
-                                            <!-- Deduce path helper if the product key matches ours, otherwise generic Cap image -->
                                             @php
-                                                // Quick helper to match mock image paths
-                                                $path = 'assets/images/products/';
-                                                if (str_contains(strtolower($item->product_name), 'tractor')) $img = $path . 'boys_sweatshirt_tractor_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'geometric')) $img = $path . 'boys_sweatshirt_geometric_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'butterfly')) $img = $path . 'girls_sweatshirt_butterfly_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'little things')) $img = $path . 'girls_sweatshirt_littlethings_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'bunny')) $img = $path . 'newborn_romper_bunny_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'striped')) $img = $path . 'newborn_romper_striped_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'bear')) $img = $path . 'newborn_bodysuit_bear_front.jpg';
-                                                elseif (str_contains(strtolower($item->product_name), 'waffle')) $img = $path . 'newborn_bodysuit_waffle_front.jpg';
-                                                else $img = 'https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80'; // fallback image
+                                                // Get the actual product image if the product still exists in the database
+                                                if ($item->product && $item->product->image_path) {
+                                                    $img = $item->product->image_path;
+                                                } else {
+                                                    // Fallback mock images based on name or default fallback
+                                                    $path = 'assets/images/products/';
+                                                    if (str_contains(strtolower($item->product_name), 'tractor')) $img = $path . 'boys_sweatshirt_tractor_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'geometric')) $img = $path . 'boys_sweatshirt_geometric_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'butterfly')) $img = $path . 'girls_sweatshirt_butterfly_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'little things')) $img = $path . 'girls_sweatshirt_littlethings_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'bunny')) $img = $path . 'newborn_romper_bunny_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'striped')) $img = $path . 'newborn_romper_striped_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'bear')) $img = $path . 'newborn_bodysuit_bear_front.jpg';
+                                                    elseif (str_contains(strtolower($item->product_name), 'waffle')) $img = $path . 'newborn_bodysuit_waffle_front.jpg';
+                                                    else $img = 'https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?auto=format&fit=crop&w=400&q=80';
+                                                }
                                             @endphp
                                             <div class="order-item-row">
                                                 <div class="order-item-img-wrapper">

@@ -289,6 +289,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.marketing') }}" class="{{ request()->routeIs('admin.marketing*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-bullhorn"></i> Marketing
+                    </a>
+                </li>
+                <li>
                     <a href="/admin/reviews" class="{{ request()->is('admin/reviews*') ? 'active' : '' }}">
                         <i class="fa-solid fa-star"></i> Reviews
                     </a>

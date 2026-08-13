@@ -2,6 +2,10 @@
     @section('header_title', 'Order Management')
     
     <div class="card-premium">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold mb-0">All Orders</h5>
+        </div>
+
         @if(session()->has('message'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 {{ session('message') }}
@@ -9,49 +13,59 @@
             </div>
         @endif
         
-        <div class="table-responsive">
+        <div class="table-responsive" style="min-height: 300px; overflow: visible;">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th class="py-3">Order ID</th>
+                        <th class="py-3">Customer</th>
+                        <th class="py-3">Amount</th>
+                        <th class="py-3">Date</th>
+                        <th class="py-3">Status</th>
+                        <th class="py-3 text-end pe-4">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($orders as $order)
                         <tr>
-                            <td>#{{ $order->id }}</td>
-                            <td>{{ $order->user->name ?? 'Guest' }}<br><small class="text-muted">{{ $order->email ?? '' }}</small></td>
-                            <td>Rs. {{ number_format($order->total ?? 0, 2) }}</td>
-                            <td>{{ $order->created_at->format('M d, Y h:i A') }}</td>
+                            <td class="fw-bold text-secondary">#{{ $order->id }}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="bg-light rounded-circle d-flex align-items-center justify-content-center text-primary fw-bold" style="width: 40px; height: 40px; border: 1px solid #eaeaea;">
+                                        {{ strtoupper(substr($order->first_name, 0, 1)) }}
+                                    </div>
+                                    <div>
+                                        <span class="fw-medium text-dark">{{ $order->first_name }} {{ $order->last_name }}</span><br>
+                                        <small class="text-muted"><i class="fa-regular fa-envelope me-1"></i>{{ $order->email ?? '' }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="fw-medium">Rs. {{ number_format($order->total ?? 0, 2) }}</td>
+                            <td><span class="text-muted"><i class="fa-regular fa-calendar me-1"></i>{{ $order->created_at->format('M d, Y h:i A') }}</span></td>
                             <td>
                                 @if($order->status === 'pending')
-                                    <span class="badge bg-warning text-dark">Pending</span>
+                                    <span class="badge bg-light text-warning border border-warning px-3 py-2 rounded-pill"><i class="fa-regular fa-clock me-1"></i> Pending</span>
                                 @elseif($order->status === 'processing')
-                                    <span class="badge bg-info text-dark">Processing</span>
+                                    <span class="badge bg-light text-primary border border-primary px-3 py-2 rounded-pill"><i class="fa-solid fa-spinner fa-spin me-1"></i> Processing</span>
                                 @elseif($order->status === 'delivered')
-                                    <span class="badge bg-success">Delivered</span>
+                                    <span class="badge bg-light text-success border border-success px-3 py-2 rounded-pill"><i class="fa-solid fa-check-double me-1"></i> Delivered</span>
                                 @else
-                                    <span class="badge bg-secondary">{{ ucfirst($order->status) }}</span>
+                                    <span class="badge bg-secondary px-3 py-2 rounded-pill">{{ ucfirst($order->status) }}</span>
                                 @endif
                             </td>
                             <td>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-outline-primary" wire:click="openViewModal({{ $order->id }})">
-                                        <i class="fa-solid fa-eye"></i> View
+                                <div class="d-flex gap-2 justify-content-end pe-2">
+                                    <button class="btn btn-sm btn-primary rounded-pill px-3 shadow-sm" wire:click="openViewModal({{ $order->id }})">
+                                        <i class="fa-solid fa-eye me-1"></i> View
                                     </button>
                                     <div class="dropdown">
-                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-sm btn-outline-secondary rounded-pill px-3 shadow-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Update Status
                                         </button>
-                                        <ul class="dropdown-menu">
-                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'pending')">Pending</button></li>
-                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'processing')">Processing</button></li>
-                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'delivered')">Delivered</button></li>
+                                        <ul class="dropdown-menu shadow border-0">
+                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'pending')"><i class="fa-regular fa-clock me-2 text-warning"></i>Pending</button></li>
+                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'processing')"><i class="fa-solid fa-spinner me-2 text-primary"></i>Processing</button></li>
+                                            <li><button class="dropdown-item" wire:click="updateStatus({{ $order->id }}, 'delivered')"><i class="fa-solid fa-check-double me-2 text-success"></i>Delivered</button></li>
                                         </ul>
                                     </div>
                                 </div>

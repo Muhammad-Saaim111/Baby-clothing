@@ -412,7 +412,10 @@
             msgEl.className = 'coupon-msg error';
         })
         .finally(() => {
-            if (applyBtn) { applyBtn.disabled = false; applyBtn.textContent = 'Apply'; }
+            if (applyBtn) { 
+                applyBtn.disabled = false; 
+                applyBtn.textContent = activeCoupon ? 'Applied' : 'Apply'; 
+            }
         });
     }
 
@@ -535,5 +538,19 @@
         // Redirect to homepage
         window.location.href = '/';
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const emailInput = document.getElementById('checkoutEmail');
+        if (emailInput) {
+            emailInput.addEventListener('blur', function() {
+                if (emailInput.value && emailInput.value.includes('@')) {
+                    localStorage.setItem('aim_checkout_email', emailInput.value);
+                }
+                if (typeof syncCartToServer === 'function') {
+                    syncCartToServer(getCart());
+                }
+            });
+        }
+    });
 </script>
 @endsection

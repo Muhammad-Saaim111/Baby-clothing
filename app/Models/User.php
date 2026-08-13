@@ -49,4 +49,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Get the orders associated with the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
