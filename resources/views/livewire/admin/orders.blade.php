@@ -165,10 +165,10 @@
                         </div>
                         <div class="col-md-6">
                             <div class="p-3 bg-light rounded text-end">
-                                <p class="mb-1">Subtotal: Rs. {{ number_format($viewingOrder->subtotal, 2) }}</p>
-                                <p class="mb-1 text-danger">Discount: -Rs. {{ number_format($viewingOrder->discount, 2) }}</p>
-                                <p class="mb-2 border-bottom pb-2">Shipping: Rs. {{ number_format($viewingOrder->shipping, 2) }}</p>
-                                <h5 class="fw-bold mb-0">Total: Rs. {{ number_format($viewingOrder->total, 2) }}</h5>
+                                <p class="mb-1">Subtotal: Rs. {{ number_format($viewingOrder->subtotal ?? 0, 2) }}</p>
+                                <p class="mb-1 text-danger">Discount: -Rs. {{ number_format($viewingOrder->discount ?? 0, 2) }}</p>
+                                <p class="mb-2 border-bottom pb-2">Shipping: Rs. {{ number_format($viewingOrder->shipping ?? 0, 2) }}</p>
+                                <h5 class="fw-bold mb-0">Total: Rs. {{ number_format($viewingOrder->total ?? 0, 2) }}</h5>
                             </div>
                         </div>
                     </div>

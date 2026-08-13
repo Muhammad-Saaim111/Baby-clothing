@@ -194,6 +194,84 @@
             box-shadow: 0 12px 40px rgba(226, 141, 117, 0.05);
         }
 
+        .review-bubble.has-images {
+            display: block;
+        }
+
+        .review-slider-col {
+            width: 100%;
+            margin-top: 1.25rem;
+            max-width: 480px;
+        }
+
+        .review-slider-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(226, 141, 117, 0.12);
+            box-shadow: 0 8px 24px rgba(226, 141, 117, 0.05);
+            background: #FDFBF7;
+        }
+
+        .review-slider-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #FDFBF7;
+            padding: 4px;
+        }
+
+        .slider-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(226, 141, 117, 0.15);
+            color: #2D312E;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            outline: none;
+            z-index: 10;
+        }
+
+        .slider-nav-btn:hover {
+            background: #E28D75;
+            color: #FFF;
+            border-color: #E28D75;
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .slider-nav-btn.prev-btn {
+            left: 12px;
+        }
+
+        .slider-nav-btn.next-btn {
+            right: 12px;
+        }
+
+        .slider-counter {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(45, 49, 46, 0.75);
+            color: #FFF;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(4px);
+        }
+
         .review-meta-header {
             display: flex;
             justify-content: space-between;
@@ -402,55 +480,72 @@
 
     <div class="reviews-grid-list">
         @forelse($reviews as $review)
-            <div class="review-bubble">
-                <div class="review-meta-header">
-                    <div class="reviewer-profile">
-                        <div class="reviewer-avatar">
-                            {{ strtoupper(substr($review->reviewer_name, 0, 1)) }}
-                        </div>
-                        <div class="reviewer-info">
-                            <h6>{{ $review->reviewer_name }}</h6>
-                            @if($review->is_verified)
-                                <span class="verified-badge">
-                                    <i class="fa-solid fa-circle-check"></i> Verified Buyer
-                                </span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="review-rating-block">
-                        <div class="review-stars-row">
-                            @for ($i = 1; $i <= 5; $i++)
-                                <i class="{{ $i <= $review->rating ? 'fa-solid' : 'fa-regular' }} fa-star"></i>
-                            @endfor
-                        </div>
-                        <div class="review-date-text">{{ $review->created_at->format('M d, Y') }}</div>
-                    </div>
-                </div>
-                
-                @if($review->review_title)
-                    <strong class="review-title-text">{{ $review->review_title }}</strong>
-                @endif
-                <p class="review-body-text">{{ $review->review_text }}</p>
-                
-                @if($review->images)
-                    <div class="review-media-gallery">
-                        @foreach($review->images as $image)
-                            <div class="gallery-thumb-wrapper">
-                                <img src="{{ asset('storage/' . $image) }}" alt="Customer Review Image">
+            <div class="review-bubble {{ $review->images ? 'has-images' : '' }}">
+                <div class="review-content-col">
+                    <div class="review-meta-header" style="justify-content: flex-start; gap: 1.5rem; margin-bottom: 1rem;">
+                        <div class="reviewer-profile">
+                            <div class="reviewer-avatar">
+                                {{ strtoupper(substr($review->reviewer_name, 0, 1)) }}
                             </div>
-                        @endforeach
-                    </div>
-                @endif
-
-                @if($review->admin_reply)
-                    <div class="admin-reply-box">
-                        <div class="admin-reply-header">
-                            <i class="fa-solid fa-reply"></i>
-                            <span>Aimee Response</span>
+                            <div class="reviewer-info">
+                                <h6 style="margin: 0; font-size: 1rem; font-weight: 700; color: #2D312E;">{{ $review->reviewer_name }}</h6>
+                                <div style="display: flex; align-items: center; gap: 8px; margin-top: 2px;">
+                                    @if($review->is_verified)
+                                        <span class="verified-badge">
+                                            <i class="fa-solid fa-circle-check"></i> Verified Buyer
+                                        </span>
+                                    @endif
+                                    <span class="review-date-text">{{ $review->created_at->format('M d, Y') }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <p class="admin-reply-text">{{ $review->admin_reply }}</p>
+                        <div class="review-rating-block" style="text-align: right; margin-left: auto;">
+                            <div class="review-stars-row" style="justify-content: flex-end; margin-bottom: 0;">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="{{ $i <= $review->rating ? 'fa-solid' : 'fa-regular' }} fa-star" style="color: #F5B041;"></i>
+                                @endfor
+                            </div>
+                        </div>
                     </div>
-                @endif
+                    
+                    @if($review->review_title)
+                        <strong class="review-title-text" style="font-size: 1.15rem; margin-top: 1.25rem; display: block; color: #2D312E;">{{ $review->review_title }}</strong>
+                    @endif
+                    <p class="review-body-text" style="font-size: 1rem; margin: 0.5rem 0 1.25rem 0; color: #6C726E; line-height: 1.6;">{{ $review->review_text }}</p>
+
+                    @if($review->images)
+                        <div class="review-slider-col" x-data="{ activeIndex: 0, images: {{ json_encode(array_map(fn($img) => asset('storage/' . $img), $review->images)) }} }">
+                            <div class="review-slider-container">
+                                <img :src="images[activeIndex]" class="review-slider-img" alt="Customer Review Image">
+                                
+                                <template x-if="images.length > 1">
+                                    <button @click.prevent="activeIndex = (activeIndex - 1 + images.length) % images.length" class="slider-nav-btn prev-btn">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                </template>
+                                <template x-if="images.length > 1">
+                                    <button @click.prevent="activeIndex = (activeIndex + 1) % images.length" class="slider-nav-btn next-btn">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </template>
+
+                                <div class="slider-counter" x-show="images.length > 1">
+                                    <span x-text="(activeIndex + 1) + ' / ' + images.length"></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($review->admin_reply)
+                        <div class="admin-reply-box" style="margin-top: 1.5rem;">
+                            <div class="admin-reply-header">
+                                <i class="fa-solid fa-reply"></i>
+                                <span>Aimee Response</span>
+                            </div>
+                            <p class="admin-reply-text">{{ $review->admin_reply }}</p>
+                        </div>
+                    @endif
+                </div>
             </div>
         @empty
             <div class="empty-reviews-state">

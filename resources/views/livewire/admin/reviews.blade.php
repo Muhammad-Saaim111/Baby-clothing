@@ -9,7 +9,7 @@
             </div>
         @endif
         
-        <div class="table-responsive">
+        <div class="table-responsive" style="min-height: 300px; overflow: visible;">
             <table class="table table-hover align-middle">
                 <thead class="table-light">
                     <tr>
@@ -36,8 +36,8 @@
                                         <i class="fa-solid fa-star {{ $i <= $review->rating ? '' : 'text-muted opacity-25' }}"></i>
                                     @endfor
                                 </div>
-                                <div class="text-truncate" title="{{ $review->comment }}">
-                                    {{ $review->comment }}
+                                <div class="text-truncate" title="{{ $review->review_text }}">
+                                    {{ $review->review_text }}
                                 </div>
                             </td>
                             <td>

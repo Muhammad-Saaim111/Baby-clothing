@@ -22,7 +22,7 @@ class Orders extends Component
 
     public function openViewModal($id)
     {
-        $this->viewingOrder = \App\Models\Order::with(['user', 'items.product', 'coupon'])->findOrFail($id);
+        $this->viewingOrder = \App\Models\Order::with(['user', 'items.product'])->findOrFail($id);
         $this->isViewModalOpen = true;
     }
 

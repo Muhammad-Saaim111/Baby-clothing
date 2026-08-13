@@ -227,6 +227,7 @@
 
         <!-- Customer Reviews Section -->
         <section class="reviews-section" id="reviewsSection">
+            <livewire:submit-review :product="$product" />
             <livewire:product-reviews :product="$product" />
         </section>
     </div>
