@@ -126,53 +126,22 @@
             <div class="deals-slider-container">
                 <div class="slider-wrapper">
                     <div class="deals-grid slider-track deals-track stagger-children" id="dealsTrack">
-                        <!-- Deal 1 -->
-                        <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_jumpsuits.jpg') }}');"></div>
-                            <div class="deal-overlay"></div>
-                            <div class="deal-content">
-                                <span class="discount-badge">20% OFF</span>
-                                <h3>Organic Jumpsuits</h3>
-                                <p>Soft and gentle baby jumpsuits made from pure organic cotton.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- Deal 2 -->
-                        <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_knitwear.jpg') }}');"></div>
-                            <div class="deal-overlay"></div>
-                            <div class="deal-content">
-                                <span class="discount-badge">15% OFF</span>
-                                <h3>Cozy Autumn Knitwear</h3>
-                                <p>Comfortable knit cardigans and sweaters for chilly evening outings.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- Deal 3 -->
-                        <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_playwear.jpg') }}');"></div>
-                            <div class="deal-overlay"></div>
-                            <div class="deal-content">
-                                <span class="discount-badge">30% OFF</span>
-                                <h3>Summer Playwear</h3>
-                                <p>Lightweight and breathable cotton outfits perfect for active toddlers.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- Deal 4 -->
-                        <div class="deal-card">
-                            <div class="deal-bg" style="background-image: url('{{ asset('assets/images/deal_sleepwear.jpg') }}');"></div>
-                            <div class="deal-overlay"></div>
-                            <div class="deal-content">
-                                <span class="discount-badge">Buy 1 Get 1</span>
-                                <h3>Organic Sleepwear</h3>
-                                <p>Keep your baby snug and comfortable all night long.</p>
-                                <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
-                            </div>
-                        </div>
+                        @if(isset($deals) && count($deals) > 0)
+                            @foreach($deals as $deal)
+                                <div class="deal-card">
+                                    <div class="deal-bg" style="background-image: url('{{ asset($deal->image_path) }}?t={{ time() }}');"></div>
+                                    <div class="deal-overlay"></div>
+                                    <div class="deal-content">
+                                        <span class="discount-badge">{{ $deal->discount }}</span>
+                                        <h3>{{ $deal->title }}</h3>
+                                        <p>{{ $deal->description }}</p>
+                                        <a href="#" class="deal-btn">Shop Deal <i class="fa-solid fa-arrow-right"></i></a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p class="text-muted p-4">No deals currently available.</p>
+                        @endif
                     </div>
                 </div>
             </div>

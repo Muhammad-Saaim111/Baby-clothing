@@ -299,6 +299,16 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{ route('admin.banners') }}" class="{{ request()->routeIs('admin.banners*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-image"></i> Banners
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.deals') }}" class="{{ request()->routeIs('admin.deals*') ? 'active' : '' }}">
+                        <i class="fa-solid fa-tags"></i> Deals
+                    </a>
+                </li>
+                <li>
                     <a href="/" target="_blank">
                         <i class="fa-solid fa-store"></i> View Store
                     </a>

@@ -66,7 +66,8 @@ Route::get('/wishlist', function () {
 
 Route::get('/', function () {
     $products = Product::where('is_active', true)->get();
-    return view('home', compact('products'));
+    $deals = \App\Models\Deal::all();
+    return view('home', compact('products', 'deals'));
 });
 
 Route::get('/product/{id}', function ($id) {
@@ -147,4 +148,6 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::get('/orders', \App\Livewire\Admin\Orders::class)->name('admin.orders');
     Route::get('/marketing', \App\Livewire\Admin\Marketing::class)->name('admin.marketing');
     Route::get('/reviews', \App\Livewire\Admin\Reviews::class)->name('admin.reviews');
+    Route::get('/banners', \App\Livewire\Admin\Banners::class)->name('admin.banners');
+    Route::get('/deals', \App\Livewire\Admin\Deals::class)->name('admin.deals');
 });
