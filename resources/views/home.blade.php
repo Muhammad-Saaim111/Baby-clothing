@@ -121,7 +121,6 @@
                     <h2>Deals Of The Week</h2>
                     <div class="title-divider"></div>
                 </div>
-                <a href="#" class="btn-link" style="color: var(--dark-charcoal); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; display: flex; align-items: center; gap: 8px;">VIEW ALL <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             <div class="deals-slider-container">
                 <div class="slider-wrapper">
