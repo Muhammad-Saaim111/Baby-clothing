@@ -50,11 +50,7 @@ Route::get('/search', function (\Illuminate\Http\Request $request) {
     $products = collect();
     if ($q) {
         $products = Product::where('is_active', true)
-            ->where(function($query) use ($q) {
-                $query->where('name', 'like', "%{$q}%")
-                      ->orWhere('description', 'like', "%{$q}%")
-                      ->orWhere('category', 'like', "%{$q}%");
-            })
+            ->where('name', 'like', "%{$q}%")
             ->paginate(12);
     }
     return view('search', compact('products', 'q'));
