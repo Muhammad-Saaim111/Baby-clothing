@@ -782,7 +782,7 @@ img {
 
 /* Category Showcase (Asymmetric Chic Grid) */
 .category-showcase {
-    padding: 100px 0 20px;
+    padding: 35px 0 20px;
 }
 
 .category-showcase-grid {
@@ -1186,7 +1186,7 @@ img {
 
 /* Testimonials (Chic / Premium Parents Style) */
 .testimonials-section {
-    padding: 100px 0;
+    padding: 30px 0 100px 0 !important;
     background: linear-gradient(180deg, #ffffff 0%, #FDFBF8 100%);
 }
 
@@ -1200,36 +1200,40 @@ img {
 
 .testimonial-card {
     background-color: #ffffff !important;
-    padding: 45px 45px 40px !important;
-    border: 1px solid rgba(226, 141, 117, 0.15) !important;
-    border-radius: 24px !important;
+    padding: 40px !important;
+    border: 1px solid rgba(226, 141, 117, 0.08) !important;
+    border-radius: 20px !important;
     position: relative !important;
-    box-shadow: 0 10px 30px rgba(211, 158, 130, 0.05) !important;
+    box-shadow: 0 10px 40px rgba(160, 106, 83, 0.02) !important;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease !important;
     overflow: hidden !important;
 }
 
 .testimonial-card:hover {
-    transform: translateY(-6px) !important;
-    box-shadow: 0 20px 45px rgba(226, 141, 117, 0.12) !important;
-    border-color: rgba(226, 141, 117, 0.35) !important;
+    transform: translateY(-5px) !important;
+    box-shadow: 0 20px 45px rgba(226, 141, 117, 0.08) !important;
+    border-color: rgba(226, 141, 117, 0.2) !important;
 }
 
 /* Large Background Quote Icon */
 .quote-bg-icon {
     position: absolute !important;
-    top: -15px !important;
-    right: 20px !important;
-    font-size: 8rem !important;
-    color: rgba(226, 141, 117, 0.05) !important;
+    top: 5px !important;
+    right: 25px !important;
+    font-size: 6rem !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-weight: 900 !important;
+    color: rgba(226, 141, 117, 0.07) !important;
+    line-height: 1 !important;
     pointer-events: none !important;
+    user-select: none !important;
     z-index: 1 !important;
 }
 
 .stars {
     color: #E28D75 !important;
-    margin-bottom: 22px !important;
-    font-size: 0.95rem !important;
+    margin-bottom: 20px !important;
+    font-size: 0.9rem !important;
     display: flex !important;
     gap: 4px !important;
     position: relative !important;
@@ -1241,19 +1245,20 @@ img {
 }
 
 .review-text {
-    font-size: 1.15rem !important;
-    font-weight: 300 !important;
+    font-size: 1.05rem !important;
+    font-weight: 400 !important;
     color: #4B5563 !important;
     font-style: italic !important;
-    margin-bottom: 35px !important;
-    line-height: 1.8 !important;
+    margin-bottom: 30px !important;
+    line-height: 1.7 !important;
     position: relative !important;
     z-index: 2 !important;
+    font-family: 'Outfit', sans-serif !important;
 }
 
 .reviewer-info {
-    border-top: 1px solid rgba(229, 231, 235, 0.7) !important;
-    padding-top: 25px !important;
+    border-top: 1px solid rgba(229, 231, 235, 0.5) !important;
+    padding-top: 20px !important;
     position: relative !important;
     z-index: 2 !important;
 }
@@ -1264,40 +1269,26 @@ img {
     gap: 15px !important;
 }
 
-.reviewer-avatar {
-    width: 48px !important;
-    height: 48px !important;
+.reviewer-avatar-img {
+    width: 44px !important;
+    height: 44px !important;
     border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05) !important;
-}
-
-.avatar-peach {
-    background: linear-gradient(135deg, #FAD0C4 0%, #FFD1FF 100%) !important;
-    color: #E28D75 !important;
+    object-fit: cover !important;
     border: 2px solid #ffffff !important;
-}
-
-.avatar-terracotta {
-    background: linear-gradient(135deg, #E28D75 0%, #D39E82 100%) !important;
-    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06) !important;
 }
 
 .reviewer-meta {
     display: flex !important;
     flex-direction: column !important;
-    gap: 3px !important;
+    gap: 2px !important;
 }
 
 .reviewer-name {
-    font-weight: 700 !important;
-    font-size: 1rem !important;
-    color: #1C221E !important;
+    font-family: 'Fredoka', sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    color: var(--dark-charcoal) !important;
 }
 
 .verified-badge {
@@ -3497,8 +3488,9 @@ img {
     left: 0 !important;
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
-    padding: 14px !important;
+    object-fit: cover !important;
+    padding: 0px !important;
+    z-index: 1 !important;
     transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
@@ -4042,7 +4034,7 @@ img {
     align-items: center !important;
     justify-content: center !important;
     cursor: pointer !important;
-    z-index: 6 !important;
+    z-index: 20 !important;
     transform: translateY(100%) !important; /* Hidden below card */
     transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -7597,4 +7589,62 @@ img {
 
 .catalog-products-grid.single-item-center .ms-card {
     max-width: 320px !important;
+}
+
+/* Testimonials Premium Hand-Drawn Doodles Styling */
+.testimonials-heading {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 15px !important;
+    font-family: 'Fredoka', sans-serif !important;
+    font-size: 2.2rem !important;
+    color: var(--dark-charcoal) !important;
+    font-weight: 700 !important;
+    position: relative !important;
+}
+
+.testimonials-header-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin-bottom: 50px !important;
+}
+
+.doodle-left {
+    margin-right: 5px !important;
+    flex-shrink: 0 !important;
+    animation: floatLeftDoodle 4s infinite ease-in-out !important;
+}
+
+.doodle-right {
+    margin-left: 5px !important;
+    flex-shrink: 0 !important;
+    animation: floatRightDoodle 4.5s infinite ease-in-out !important;
+}
+
+.sub-heart-divider {
+    margin-top: 12px !important;
+    display: flex !important;
+    justify-content: center !important;
+    position: relative !important;
+}
+
+.doodle-bottom {
+    animation: pulseHeart 2s infinite ease-in-out !important;
+}
+
+@keyframes floatLeftDoodle {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-3px) rotate(-1deg); }
+}
+
+@keyframes floatRightDoodle {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-2px) scale(1.05); }
+}
+
+@keyframes pulseHeart {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.15); opacity: 1; filter: drop-shadow(0 2px 4px rgba(255, 122, 89, 0.2)); }
 }

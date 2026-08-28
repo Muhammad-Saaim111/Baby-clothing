@@ -9,13 +9,14 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Fredoka:wght@400;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons (FontAwesome or similar) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="{{ asset('css/style.css') }}?v={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/redesign.css') }}?v={{ time() }}">
     
     @livewireStyles
 
@@ -357,8 +358,9 @@
             <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
 
             <!-- Logo -->
-            <a href="/" class="logo">
-                <img src="{{ asset('assets/images/logo_clean.png') }}" alt="AiM'EE Logo" style="height: 40px; width: auto; display: block;">
+            <a href="/" class="logo" style="display: flex; flex-direction: column; align-items: center; text-decoration: none; line-height: 1;">
+                <img src="{{ asset('assets/images/logo_clean.png') }}" alt="AiM'EE Logo" style="height: 38px; width: auto; display: block;">
+                <span class="logo-tagline" style="font-family: 'Caveat', cursive; font-size: 1.3rem; font-weight: 700; color: #3b4e61; letter-spacing: 0.5px; margin-top: 1px; text-transform: none; white-space: nowrap;">For Every Little Smile</span>
             </a>
 
             <!-- Navigation Links -->
