@@ -484,13 +484,15 @@
           </ul>
         </div>
 
-        <div class="footer-column">
+        <div class="footer-column newsletter">
           <h4>NEWSLETTER</h4>
-          <p class="footer-description">Subscribe to receive updates, access to exclusive deals, and more.</p>
-          <form class="newsletter-form">
-            <input type="email" class="newsletter-input" placeholder="Enter your email address">
+          <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+          <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+            @csrf
+            <input type="email" name="email" class="newsletter-input" id="newsletterEmail" placeholder="Enter your email address" required>
             <button type="submit" class="newsletter-button">SUBSCRIBE</button>
           </form>
+          <div id="newsletterMessage" style="display: none; margin-top: 10px; font-size: 0.9rem; font-family: 'Outfit', sans-serif;"></div>
         </div>
       </div>
 
@@ -2040,7 +2042,106 @@
                 }
             }
         });
+        
+        async function handleNewsletterSubmit(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const emailInput = document.getElementById('newsletterEmail');
+            const button = form.querySelector('.newsletter-button');
+            
+            const email = emailInput.value;
+            if (!email) return;
+
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            button.disabled = true;
+
+            try {
+                const response = await fetch('/subscribe', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ email: email })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showToast('Success!', data.message, 'success');
+                    emailInput.value = '';
+                } else {
+                    showToast('Oops!', data.message || 'Something went wrong.', 'error');
+                }
+            } catch (error) {
+                showToast('Error', 'Failed to subscribe. Please try again.', 'error');
+            }
+            
+            button.innerHTML = originalText;
+            button.disabled = false;
+        }
+
+        // --- Global Toast Notification System ---
+        window.showToast = function(title, message, type = 'success') {
+            const toast = document.getElementById('globalToast');
+            const icon = document.getElementById('toastIcon');
+            const titleEl = document.getElementById('toastTitle');
+            const msgEl = document.getElementById('toastMessage');
+
+            // Set content
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+
+            // Reset classes
+            toast.className = 'global-toast';
+            icon.className = 'toast-icon';
+
+            // Set type specific styles/icons
+            if (type === 'success') {
+                toast.classList.add('toast-success');
+                icon.className = 'toast-icon fa-solid fa-check-circle';
+            } else if (type === 'error') {
+                toast.classList.add('toast-error');
+                icon.className = 'toast-icon fa-solid fa-circle-exclamation';
+            } else if (type === 'info') {
+                toast.classList.add('toast-info');
+                icon.className = 'toast-icon fa-solid fa-info-circle';
+            } else if (type === 'heart') {
+                toast.classList.add('toast-heart');
+                icon.className = 'toast-icon fa-solid fa-heart';
+            } else if (type === 'cart') {
+                toast.classList.add('toast-cart');
+                icon.className = 'toast-icon fa-solid fa-cart-shopping';
+            }
+
+            // Show toast
+            toast.classList.add('show');
+
+            // Hide after 4 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+
+        window.closeToast = function() {
+            document.getElementById('globalToast').classList.remove('show');
+        }
     </script>
+    
+    <!-- Global Toast Container -->
+    <div id="globalToast" class="global-toast">
+        <div class="toast-content">
+            <i id="toastIcon" class="toast-icon"></i>
+            <div class="toast-text">
+                <h5 id="toastTitle">Success</h5>
+                <p id="toastMessage">Action completed successfully.</p>
+            </div>
+        </div>
+        <button class="toast-close" onclick="closeToast()"><i class="fa-solid fa-times"></i></button>
+    </div>
+
     @livewireScripts
 </body>
 </html>

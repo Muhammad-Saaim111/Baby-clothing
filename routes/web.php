@@ -4,11 +4,15 @@ use Illuminate\Support\Facades\Route;
 use App\Models\Product;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CouponController;
+use App\Http\Controllers\NewsletterSubscriberController;
 
 
 Route::post('/login/ajax', [AuthController::class, 'login'])->name('login.ajax');
 Route::post('/register/ajax', [AuthController::class, 'register'])->name('register.ajax');
 Route::post('/logout/ajax', [AuthController::class, 'logout'])->name('logout.ajax');
+
+// Newsletter Route
+Route::post('/subscribe', [NewsletterSubscriberController::class, 'store'])->name('newsletter.subscribe');
 
 // Google OAuth Routes
 Route::get('/auth/google', [\App\Http\Controllers\GoogleAuthController::class, 'redirectToGoogle'])->name('google.login');
