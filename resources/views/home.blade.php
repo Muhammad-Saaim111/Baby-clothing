@@ -869,8 +869,9 @@
                         @foreach($products as $prodId => $prod)
                         @php
                             $ageRange = $prod->age_range ?? '2 - 6 Years';
-                            $stars = $prod->rating ?? 5.0;
-                            $reviews = $prod->review_count ?? 0;
+                            $approvedReviews = $prod->reviews->where('status', 'approved');
+                            $stars = $approvedReviews->avg('rating') ?: 0.0;
+                            $reviews = $approvedReviews->count();
                             $discountPct = isset($prod->old_price) ? round((($prod->old_price - $prod->price) / $prod->old_price) * 100) : 0;
                         @endphp
                         <div class="ms-card" data-id="{{ $prodId }}" data-category="{{ $prod->category ?? 'Little Boys' }}" data-sizes="{{ implode(',', $prod->sizes ?? []) }}">

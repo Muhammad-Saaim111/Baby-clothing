@@ -330,6 +330,8 @@
                         <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
                     </ul>
                 </li>
+                <li><a href="{{ route('category.show', 'accessories') }}">Accessories</a></li>
+                <li><a href="{{ route('category.show', 'sale') }}">Sale</a></li>
             </ul>
         </div>
     </div>
@@ -385,6 +387,8 @@
                             <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
                         </ul>
                     </li>
+                    <li><a href="{{ route('category.show', 'accessories') }}">Accessories</a></li>
+                    <li><a href="{{ route('category.show', 'sale') }}">Sale</a></li>
                 </ul>
             </nav>
 
@@ -495,7 +499,7 @@
             <img src="{{ asset('assets/images/footer_elephant.png') }}" alt="Elephant" style="max-height: 120px; mix-blend-mode: multiply;">
             <img src="{{ asset('assets/images/footer_giraffe.png') }}" alt="Giraffe" style="max-height: 150px; mix-blend-mode: multiply;">
             <img src="{{ asset('assets/images/footer_onesie.jpg') }}" alt="Onesie Decor" style="position: absolute; left: 50%; bottom: 35px; max-height: 80px; mix-blend-mode: multiply; transform: translateX(-50%) rotate(-15deg);">
-            <img src="{{ asset('assets/images/footer_bear.png') }}" alt="Bear" style="max-height: 110px; mix-blend-mode: multiply;">
+            <img src="{{ asset('assets/images/footer_bear.png') }}" alt="Bear" style="max-height: 110px; mix-blend-mode: multiply; margin-bottom: 4px;">
             <img src="{{ asset('assets/images/footer_decor.jpg') }}" alt="Decorations" style="position: absolute; right: 15%; bottom: 30px; max-height: 140px; mix-blend-mode: multiply;">
             <img src="{{ asset('assets/images/footer_bunny.png') }}" alt="Bunny" style="max-height: 110px; mix-blend-mode: multiply;">
         </div>

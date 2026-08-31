@@ -21,7 +21,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A trendy and comfortable black sweatshirt featuring a unique white splatter print. Perfect for casual wear and keeping your little one cozy.',
                 'image_path' => 'assets/images/products/media__1785749405584_front.jpg',
                 'category' => 'Little Girls',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['100% Premium Cotton Fleece', 'Ribbed cuffs and hem', 'Soft, breathable interior', 'Machine washable'])
             ],
             [
@@ -32,7 +32,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A playful blue long-sleeve sweatshirt with colorful tractor patterns. Designed for active little boys who love adventure.',
                 'image_path' => 'assets/images/products/media__1785749417508_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Soft loopback cotton terry', 'Vibrant pattern print', 'Stretchy crewneck for easy dressing', 'Durable double-stitched seams'])
             ],
             [
@@ -43,7 +43,7 @@ class ProductSeeder extends Seeder
                 'description' => 'An adorable grey sweatshirt featuring a beautiful butterfly design and "LITTLE THINGS" lettering. Soft, gentle, and absolutely charming.',
                 'image_path' => 'assets/images/products/media__1785749433662_front.jpg',
                 'category' => 'Little Girls',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Premium cotton blend', 'Delicate butterfly graphic print', 'Ribbed neckline and cuffs', 'Warm and snug fit'])
             ],
             [
@@ -54,7 +54,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A cool navy blue sweatshirt featuring a geometric line-art dinosaur. Stylish, modern, and very comfortable.',
                 'image_path' => 'assets/images/products/media__1785749452186_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['High-quality fleece fabric', 'Modern geometric graphic', 'Durable ribbing', 'Ideal for outdoor playtime'])
             ],
             [
@@ -65,7 +65,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A lovely lavender sweatshirt detailed with a large, beautifully patterned butterfly. Perfect for little girls who love pretty details.',
                 'image_path' => 'assets/images/products/media__1785749462105_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Ultra-soft cotton blend', 'Detailed butterfly graphic', 'Pastel lavender color shade', 'Cozy fleece lining'])
             ],
             [
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A vibrant red sweatshirt adorned with a delicate white and gold butterfly design. Adds a bright and cheerful touch to any outfit.',
                 'image_path' => 'assets/images/products/media__1785749519451_front.jpg',
                 'category' => 'Little Girls',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Bright red premium fleece', 'Soft gold-accented print', 'Comfortable stretch cuffs', 'Warm and durable fabric'])
             ],
             [
@@ -87,7 +87,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A bright yellow sweatshirt featuring a sleek "LOS ANGELES CALIFORNIA" graphic print. A trendy street-style look for little boys.',
                 'image_path' => 'assets/images/products/media__1785749528451_front.jpg',
                 'category' => 'Little Girls',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Premium breathable cotton', 'Stylish city silhouette graphic', 'Comfortable relaxed fit', 'Bright, fade-resistant color'])
             ],
             [
@@ -98,7 +98,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A unique color-block sweatshirt with a grey top, camo patterned middle band, and navy blue bottom. Stylish and sporty.',
                 'image_path' => 'assets/images/products/media__1785749550012_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Three-tone color blocking', 'Sporty camouflage details', 'Thick warm fleece fabric', 'Ribbed cuffs and waistband'])
             ],
             [
@@ -153,7 +153,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A dream-like light purple sweatshirt patterned with adorable unicorns, castles, and stars. Perfect for little princess vibes.',
                 'image_path' => 'assets/images/products/media__1785749616021_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Soft-touch cotton fabric', 'Dreamy all-over unicorn print', 'Elasticated cuffs for a snug fit', 'Gentle on skin'])
             ],
             [
@@ -164,7 +164,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A cute peach sweatshirt detailed with a large butterfly and a sweet text layout. Cozy and beautiful.',
                 'image_path' => 'assets/images/products/media__1785749624016_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Lovely peach-pink color', 'Chic butterfly graphic', 'Warm loopback lining', 'Comfortable crew neckline'])
             ],
             [
@@ -175,7 +175,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A premium dark purple sweatshirt with a stunning white butterfly graphic. Combines high warmth with great style.',
                 'image_path' => 'assets/images/products/media__1785749632165_front.jpg',
                 'category' => 'Little Girls',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Rich deep purple shade', 'Crisp white butterfly details', 'Double-stitched seams', 'High-grade cotton fleece'])
             ],
             [
@@ -186,7 +186,7 @@ class ProductSeeder extends Seeder
                 'description' => 'An adorable grey sweatshirt featuring a beautiful butterfly design and "LITTLE THINGS" lettering. Soft, gentle, and absolutely charming.',
                 'image_path' => 'assets/images/products/media__16_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Premium cotton blend', 'Delicate butterfly graphic print', 'Ribbed neckline and cuffs', 'Warm and snug fit'])
             ],
             [
@@ -197,7 +197,7 @@ class ProductSeeder extends Seeder
                 'description' => 'A trendy and comfortable sweatshirt designed specially for little boys. Perfect for everyday casual wear.',
                 'image_path' => 'assets/images/products/media__17_front.jpg',
                 'category' => 'Little Boys',
-                'sizes' => json_encode(['1-2Y', '2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
+                'sizes' => json_encode(['2-3Y', '3-4Y', '4-5Y', '5-6Y', '6-7Y', '7-8Y']),
                 'features' => json_encode(['Soft and warm fabric', 'Trendy modern design', 'Durable stitching', 'Comfortable fit'])
             ]
         ];

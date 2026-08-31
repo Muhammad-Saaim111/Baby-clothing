@@ -49,7 +49,7 @@ Route::get('/search', function (\Illuminate\Http\Request $request) {
     $q = trim($request->input('q', ''));
     $products = collect();
     if ($q) {
-        $products = Product::where('is_active', true)
+        $products = Product::with('reviews')->where('is_active', true)
             ->where('name', 'like', "%{$q}%")
             ->paginate(12);
     }
@@ -61,7 +61,7 @@ Route::get('/wishlist', function () {
 })->name('wishlist');
 
 Route::get('/', function () {
-    $products = Product::where('is_active', true)->get();
+    $products = Product::with('reviews')->where('is_active', true)->get();
     $deals = \App\Models\Deal::all();
     return view('home', compact('products', 'deals'));
 });
@@ -93,6 +93,10 @@ Route::get('/category/{gender}', function ($gender) {
         $category_name = 'Little Girls';
     } elseif ($gender === 'new-born') {
         $category_name = 'New Born';
+    } elseif ($gender === 'accessories') {
+        $category_name = 'Accessories';
+    } elseif ($gender === 'sale') {
+        $category_name = 'Sale';
     } elseif ($gender === 'shirts') {
         $category_name = 'All Shirts';
     } else {
@@ -100,12 +104,26 @@ Route::get('/category/{gender}', function ($gender) {
     }
     
     if ($gender === 'shirts') {
-        $products = Product::where('is_active', true)->get();
+        $products = Product::with('reviews')->where('is_active', true)->get();
     } elseif ($gender === 'new-born') {
         // Fetch products with smaller sizes like 1-2Y to populate newborn catalog
-        $products = Product::where('is_active', true)->where('sizes', 'like', '%1-2Y%')->take(6)->get();
+        $products = Product::with('reviews')->where('is_active', true)->where('sizes', 'like', '%1-2Y%')->take(6)->get();
+    } elseif ($gender === 'sale') {
+        // Fetch all products that have a discount (old_price > price)
+        $products = Product::with('reviews')->where('is_active', true)->whereNotNull('old_price')->get();
+    } elseif ($gender === 'accessories') {
+        // Fetch accessories products or fallback if empty
+        $products = Product::with('reviews')->where('is_active', true)->where('category', 'like', '%Accessories%')->get();
+        if ($products->isEmpty()) {
+            // Fallback: take a subset of products as mocked accessories for catalog demo
+            $products = Product::with('reviews')->where('is_active', true)->take(4)->get()->map(function($product) {
+                $product->name = str_replace(['Sweatshirt', 'Sweater', 'Vest'], 'Beanie & Scarf Set', $product->name);
+                $product->category = 'Accessories';
+                return $product;
+            });
+        }
     } else {
-        $products = Product::where('is_active', true)->where('category', $category_name)->get();
+        $products = Product::with('reviews')->where('is_active', true)->where('category', $category_name)->get();
     }
     
     return view('category', [

@@ -38,7 +38,7 @@
         <div class="catalog-products-grid layout-4" style="margin-top: 32px;">
             @foreach($products as $product)
             <div class="ms-card product-item" data-id="{{ $product->id }}" data-price="{{ $product->price }}" data-name="{{ strtolower($product->name) }}" data-sizes="{{ implode(',', $product->sizes ?? []) }}">
-                <div class="ms-img-wrapper" @if(in_array($product->id, [9, 16, 17])) style="aspect-ratio: 1 / 1; background: transparent;" @endif>
+                <div class="ms-img-wrapper">
                     @if($product->stock <= 0)
                         <span class="ms-discount" style="background-color: var(--terracotta) !important; font-weight: 700; text-transform: uppercase; font-size: 0.68rem; letter-spacing: 0.5px; border-radius: 4px; padding: 4px 8px;">Out of Stock</span>
                     @elseif($product->old_price)
@@ -47,7 +47,7 @@
                     <button class="grid-wishlist-btn" data-id="{{ $product->id }}" title="Add to Wishlist" onclick="toggleWishlist(this, '{{ $product->id }}', '{{ addslashes($product->name) }}', {{ $product->price }}, '{{ asset($product->image_path) }}')"><i class="fa-regular fa-heart"></i></button>
                     <button class="ms-quick-view" title="Quick View" data-id="{{ $product->id }}" data-title="{{ $product->name }}" data-price="{{ $product->price }}" data-old-price="{{ $product->old_price ?? '' }}" data-image="{{ asset($product->image_path) }}" data-category="{{ $product->category ?? 'Apparel' }}" onclick="openQuickView(this)"><i class="fa-regular fa-eye"></i></button>
                     <a href="{{ route('product.show', $product->id) }}">
-                        <img class="real-product-img" src="{{ asset($product->image_path) }}" alt="{{ $product->name }}" @if(in_array($product->id, [9, 16, 17])) style="object-fit: contain !important; transform: scale(1.15);" @endif>
+                        <img class="real-product-img" src="{{ asset($product->image_path) }}" alt="{{ $product->name }}" @if(in_array($product->id, [9, 16, 17])) style="object-fit: contain !important; padding: 10px;" @endif>
                     </a>
                     <div class="ms-quick-btn">
                         <a href="{{ route('product.show', $product->id) }}" class="quick-view-link">Quick View <i class="fa-solid fa-arrow-right"></i></a>
