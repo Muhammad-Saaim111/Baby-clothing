@@ -330,7 +330,6 @@
                         <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
                     </ul>
                 </li>
-                <li><a href="#" class="sale-link">Hot Sale</a></li>
             </ul>
         </div>
     </div>
@@ -386,7 +385,6 @@
                             <li><a href="{{ route('category.show', 'new-born') }}">Bodysuits</a></li>
                         </ul>
                     </li>
-                    <li><a href="#" class="sale-link">Hot Sale</a></li>
                 </ul>
             </nav>
 
@@ -444,59 +442,67 @@
     </main>
 
     <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-col">
-                <a href="/" class="footer-logo">
-                    <img src="{{ asset('assets/images/logo_clean.png') }}" alt="AiM'EE Logo" style="height: 40px; width: auto; display: block;">
-                </a>
-                <p>Premium, comfortable, and adorable clothing for your little ones. Made with love and care.</p>
-                <div class="social-icons">
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                </div>
-            </div>
-            <div class="footer-col">
-                <h3>Shop</h3>
-                <ul>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">Baby (0-2 Years)</a></li>
-                    <li><a href="#">Toddler (2-5 Years)</a></li>
-                    <li><a href="#">Kids (5-8 Years)</a></li>
-                    <li><a href="#">Accessories</a></li>
-                    <li><a href="#">Sale</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Information</h3>
-                <ul>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Shipping Policy</a></li>
-                    <li><a href="#">Returns & Exchanges</a></li>
-                    <li><a href="#">FAQ</a></li>
-                </ul>
-            </div>
-            <div class="footer-col">
-                <h3>Newsletter</h3>
-                <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Enter your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-column brand-column">
+          <a href="/" class="footer-logo">
+            <img src="{{ asset('assets/images/logo_clean.png') }}" alt="AiM'EE Logo" style="height: 32px; width: auto; display: block;">
+          </a>
+          <p class="footer-description">Premium, comfortable, and adorable clothing for your little ones. Made with love and care.</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+          </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; {{ date('Y') }} BabyClothing. All rights reserved.</p>
-            <div class="payment-methods">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-                <i class="fab fa-cc-paypal"></i>
-                <i class="fab fa-cc-amex"></i>
-            </div>
+
+        <div class="footer-column">
+          <h4>SHOP</h4>
+          <ul class="footer-links">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Baby (0-2 Years)</a></li>
+            <li><a href="#">Toddler (2-5 Years)</a></li>
+            <li><a href="#">Kids (5-8 Years)</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Sale</a></li>
+          </ul>
         </div>
+
+        <div class="footer-column">
+          <h4>INFORMATION</h4>
+          <ul class="footer-links">
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h4>NEWSLETTER</h4>
+          <p class="footer-description">Subscribe to receive updates, access to exclusive deals, and more.</p>
+          <form class="newsletter-form">
+            <input type="email" class="newsletter-input" placeholder="Enter your email address">
+            <button type="submit" class="newsletter-button">SUBSCRIBE</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-illustrations-container" style="width: 100%; display: flex; justify-content: space-around; align-items: flex-end; position: absolute; bottom: 100%; left: 0; pointer-events: none; margin-bottom: -15px;">
+            <img src="{{ asset('assets/images/footer_elephant.png') }}" alt="Elephant" style="max-height: 120px; mix-blend-mode: multiply;">
+            <img src="{{ asset('assets/images/footer_giraffe.png') }}" alt="Giraffe" style="max-height: 150px; mix-blend-mode: multiply;">
+            <img src="{{ asset('assets/images/footer_onesie.jpg') }}" alt="Onesie Decor" style="position: absolute; left: 50%; bottom: 35px; max-height: 80px; mix-blend-mode: multiply; transform: translateX(-50%) rotate(-15deg);">
+            <img src="{{ asset('assets/images/footer_bear.png') }}" alt="Bear" style="max-height: 110px; mix-blend-mode: multiply;">
+            <img src="{{ asset('assets/images/footer_decor.jpg') }}" alt="Decorations" style="position: absolute; right: 15%; bottom: 30px; max-height: 140px; mix-blend-mode: multiply;">
+            <img src="{{ asset('assets/images/footer_bunny.png') }}" alt="Bunny" style="max-height: 110px; mix-blend-mode: multiply;">
+        </div>
+        <p>© {{ date('Y') }} BabyClothing. All rights reserved.</p>
+
+      </div>
+    </footer>
     <!-- Authentication Modal (Login / Signup) -->
     <div id="authModal" class="auth-modal-overlay">
         <div class="auth-modal-content">
